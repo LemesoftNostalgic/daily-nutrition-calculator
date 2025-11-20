@@ -26,7 +26,7 @@
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
         }
 
@@ -82,20 +82,91 @@
             color: white;
         }
 
+        .content-area {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
         .figure-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 400px;
+            min-height: 200px;
             background: #f8f9fa;
             border-radius: 12px;
             padding: 20px;
+            flex: 0 0 auto;
         }
 
         .figure-container img {
-            max-width: 100%;
+            max-width: 100px;
             height: auto;
-            max-height: 400px;
+            max-height: 200px;
+        }
+
+        .nutrition-info {
+            flex: 1;
+            min-width: 300px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .nutrition-info h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .nutrition-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .nutrition-item:last-child {
+            border-bottom: none;
+        }
+
+        .nutrition-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .nutrition-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .nutrition-unit {
+            font-size: 14px;
+            color: #888;
+            margin-left: 4px;
+        }
+
+        .nutrition-subtext {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                flex-direction: column;
+            }
+            
+            .figure-container,
+            .nutrition-info {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -123,8 +194,50 @@
             </div>
         </div>
 
-        <div class="figure-container" id="figureContainer">
-            <!-- Figure will be inserted here -->
+        <div class="content-area">
+            <div class="figure-container" id="figureContainer">
+                <!-- Figure will be inserted here -->
+            </div>
+
+            <div class="nutrition-info">
+                <h2>Optimal Daily Nutrition</h2>
+                <div class="nutrition-item">
+                    <div>
+                        <div class="nutrition-label">Carbohydrates</div>
+                        <div class="nutrition-subtext">45-65% of calories</div>
+                    </div>
+                    <div class="nutrition-value">
+                        <span id="carbValue">0</span><span class="nutrition-unit">g</span>
+                    </div>
+                </div>
+                <div class="nutrition-item">
+                    <div>
+                        <div class="nutrition-label">Protein</div>
+                        <div class="nutrition-subtext">10-35% of calories</div>
+                    </div>
+                    <div class="nutrition-value">
+                        <span id="proteinValue">0</span><span class="nutrition-unit">g</span>
+                    </div>
+                </div>
+                <div class="nutrition-item">
+                    <div>
+                        <div class="nutrition-label">Fat</div>
+                        <div class="nutrition-subtext">20-35% of calories</div>
+                    </div>
+                    <div class="nutrition-value">
+                        <span id="fatValue">0</span><span class="nutrition-unit">g</span>
+                    </div>
+                </div>
+                <div class="nutrition-item">
+                    <div>
+                        <div class="nutrition-label">Total Calories</div>
+                        <div class="nutrition-subtext">Daily energy intake</div>
+                    </div>
+                    <div class="nutrition-value">
+                        <span id="calorieValue">0</span><span class="nutrition-unit">kcal</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -132,10 +245,70 @@
         let currentWeight = '90';
         let currentActivity = 'active';
 
+        // Activity multipliers for calculating TDEE (Total Daily Energy Expenditure)
+        const activityMultipliers = {
+            'sedentary': 1.2,    // Little or no exercise
+            'moderate': 1.55,    // Moderate exercise 3-5 days/week
+            'active': 1.725      // Hard exercise 6-7 days/week
+        };
+
+        function calculateNutrition(weight, activity) {
+            // Calculate BMR using Mifflin-St Jeor Equation (simplified, assuming average height and age)
+            // For a gender-neutral average: BMR ≈ 10 × weight(kg) + 6.25 × height(cm) - 5 × age + constant
+            // Using average values: height=170cm, age=30, constant=0 (average of +5 for male, -161 for female)
+            const bmr = 10 * weight + 6.25 * 170 - 5 * 30;
+            
+            // Calculate TDEE (Total Daily Energy Expenditure)
+            const tdee = Math.round(bmr * activityMultipliers[activity]);
+            
+            // Calculate macronutrients
+            // Carbs: 50% of calories (moderate approach)
+            const carbCalories = tdee * 0.50;
+            const carbs = Math.round(carbCalories / 4); // 4 calories per gram of carbs
+            
+            // Protein: varies by activity level
+            let proteinPerKg;
+            if (activity === 'sedentary') {
+                proteinPerKg = 0.8; // RDA for sedentary
+            } else if (activity === 'moderate') {
+                proteinPerKg = 1.4; // Moderate activity
+            } else { // active
+                proteinPerKg = 1.8; // Active/athletic
+            }
+            const protein = Math.round(weight * proteinPerKg);
+            
+            // Fat: remaining calories after carbs and protein
+            const proteinCalories = protein * 4;
+            const fatCalories = tdee - carbCalories - proteinCalories;
+            const fat = Math.round(fatCalories / 9); // 9 calories per gram of fat
+            
+            return {
+                calories: tdee,
+                carbs: carbs,
+                protein: protein,
+                fat: fat
+            };
+        }
+
+        function updateNutrition() {
+            const weight = parseInt(currentWeight);
+            const nutrition = calculateNutrition(weight, currentActivity);
+            
+            document.getElementById('calorieValue').textContent = nutrition.calories;
+            document.getElementById('carbValue').textContent = nutrition.carbs;
+            document.getElementById('proteinValue').textContent = nutrition.protein;
+            document.getElementById('fatValue').textContent = nutrition.fat;
+        }
+
         function updateFigure() {
             const filename = `images/${currentWeight}-${currentActivity}.svg`;
             const figureContainer = document.getElementById('figureContainer');
             figureContainer.innerHTML = `<img src="${filename}" alt="Body type: ${currentWeight}kg, ${currentActivity}">`;
+        }
+
+        function update() {
+            updateFigure();
+            updateNutrition();
         }
 
         // Weight buttons
@@ -144,7 +317,7 @@
                 document.querySelectorAll('[data-weight]').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentWeight = this.dataset.weight;
-                updateFigure();
+                update();
             });
         });
 
@@ -154,12 +327,12 @@
                 document.querySelectorAll('[data-activity]').forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
                 currentActivity = this.dataset.activity;
-                updateFigure();
+                update();
             });
         });
 
-        // Initialize with default figure
-        updateFigure();
+        // Initialize with default figure and nutrition
+        update();
     </script>
 </body>
 </html>
