@@ -435,4 +435,358 @@
                 <div class="nutrition-item">
                     <div>
                         <div class="nutrition-label">Fat</div>
-                        <div class="nutrition
+                        <div class="nutrition-subtext">20-35% of calories</div>
+                    </div>
+                    <div class="nutrition-value">
+                        <span id="fatValue">0</span><span class="nutrition-unit">g</span>
+                    </div>
+                    <div class="nutrition-value actual" id="fatActualContainer">
+                        <span id="fatActual">0</span><span class="nutrition-unit">g</span>
+                    </div>
+                </div>
+                <div class="nutrition-item">
+                    <div>
+                        <div class="nutrition-label">Total Calories</div>
+                        <div class="nutrition-subtext">Daily energy intake</div>
+                    </div>
+                    <div class="nutrition-value">
+                        <span id="calorieValue">0</span><span class="nutrition-unit">kcal</span>
+                    </div>
+                    <div class="nutrition-value actual" id="calorieActualContainer">
+                        <span id="calorieActual">0</span><span class="nutrition-unit">kcal</span>
+                    </div>
+                </div>
+                
+                <div class="cost-display">
+                    <h3>Total Cost</h3>
+                    <div>
+                        <span class="cost-value" id="totalCost">0.00</span><span class="cost-unit">EUR</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentWeight = '90';
+        let currentActivity = 'active';
+        let wheatFlourPortions = 0;
+        let soyMincePortions = 0;
+        let rapeseedOilPortions = 0;
+        let pastaPortions = 0;
+        let driedPeasPortions = 0;
+        let margarinePortions = 0;
+        let sugarPortions = 0;
+        let lightMilkPortions = 0;
+        let eggsPortions = 0;
+
+        // Activity multipliers for calculating TDEE (Total Daily Energy Expenditure)
+        const activityMultipliers = {
+            'sedentary': 1.2,    // Little or no exercise
+            'moderate': 1.55,    // Moderate exercise 3-5 days/week
+            'active': 1.725      // Hard exercise 6-7 days/week
+        };
+
+        // Nutritional values per 100g
+        const nutritionPer100g = {
+            wheatFlour: {
+                carbs: 76.3,
+                protein: 10.3,
+                fat: 1.0,
+                calories: 364
+            },
+            soyMince: {
+                carbs: 30.0,
+                protein: 50.0,
+                fat: 1.0,
+                calories: 330
+            },
+            rapeseedOil: {
+                carbs: 0,
+                protein: 0,
+                fat: 100.0,
+                calories: 884
+            },
+            pasta: {
+                carbs: 75.0,
+                protein: 13.0,
+                fat: 1.5,
+                calories: 371
+            },
+            driedPeas: {
+                carbs: 60.0,
+                protein: 21.0,
+                fat: 2.0,
+                calories: 341
+            },
+            margarine: {
+                carbs: 0.7,
+                protein: 0.2,
+                fat: 80.0,
+                calories: 720
+            },
+            sugar: {
+                carbs: 99.8,
+                protein: 0,
+                fat: 0,
+                calories: 387
+            },
+            lightMilk: {
+                carbs: 4.8,
+                protein: 3.5,
+                fat: 1.5,
+                calories: 46
+            },
+            eggs: {
+                carbs: 1.1,
+                protein: 13.0,
+                fat: 11.0,
+                calories: 155
+            }
+        };
+
+        // Prices in EUR per kg
+        const pricesPerKg = {
+            wheatFlour: 0.68,
+            soyMince: 6.10,
+            rapeseedOil: 2.75,
+            pasta: 0.86,
+            driedPeas: 1.98,
+            margarine: 3.0,
+            sugar: 1.29,
+            lightMilk: 0.95,
+            eggs: 3.3
+        };
+
+        function getColorClass(actual, optimal) {
+            if (actual >= optimal) {
+                return 'green';
+            } else if (actual >= optimal * 0.9) {
+                return 'orange';
+            } else {
+                return 'red';
+            }
+        }
+
+        function calculateFoodNutrition() {
+            let totalCarbs = 0, totalProtein = 0, totalFat = 0, totalCalories = 0;
+
+            // Helper function to calculate nutrition for each food
+            const addFood = (portions, gramsPerPortion, foodType) => {
+                const grams = portions * gramsPerPortion;
+                totalCarbs += (nutritionPer100g[foodType].carbs * grams) / 100;
+                totalProtein += (nutritionPer100g[foodType].protein * grams) / 100;
+                totalFat += (nutritionPer100g[foodType].fat * grams) / 100;
+                totalCalories += (nutritionPer100g[foodType].calories * grams) / 100;
+            };
+
+            // Calculate for all foods
+            addFood(wheatFlourPortions, 50, 'wheatFlour');
+            addFood(soyMincePortions, 20, 'soyMince');
+            addFood(rapeseedOilPortions, 10, 'rapeseedOil');
+            addFood(pastaPortions, 70, 'pasta');
+            addFood(driedPeasPortions, 20, 'driedPeas');
+            addFood(margarinePortions, 10, 'margarine');
+            addFood(sugarPortions, 10, 'sugar');
+            addFood(lightMilkPortions, 200, 'lightMilk');
+            addFood(eggsPortions, 60, 'eggs');
+
+            return {
+                carbs: Math.round(totalCarbs),
+                protein: Math.round(totalProtein),
+                fat: Math.round(totalFat),
+                calories: Math.round(totalCalories)
+            };
+        }
+
+        function calculateTotalCost() {
+            let totalCost = 0;
+
+            // Helper function to calculate cost for each food
+            const addCost = (portions, gramsPerPortion, foodType) => {
+                const grams = portions * gramsPerPortion;
+                totalCost += (grams / 1000) * pricesPerKg[foodType];
+            };
+
+            // Calculate cost for all foods
+            addCost(wheatFlourPortions, 50, 'wheatFlour');
+            addCost(soyMincePortions, 20, 'soyMince');
+            addCost(rapeseedOilPortions, 10, 'rapeseedOil');
+            addCost(pastaPortions, 70, 'pasta');
+            addCost(driedPeasPortions, 20, 'driedPeas');
+            addCost(margarinePortions, 10, 'margarine');
+            addCost(sugarPortions, 10, 'sugar');
+            addCost(lightMilkPortions, 200, 'lightMilk');
+            addCost(eggsPortions, 60, 'eggs');
+
+            return totalCost;
+        }
+
+        function calculateNutrition(weight, activity) {
+            // Calculate BMR using Mifflin-St Jeor Equation (simplified, assuming average height and age)
+            // For a gender-neutral average: BMR ≈ 10 × weight(kg) + 6.25 × height(cm) - 5 × age + constant
+            // Using average values: height=170cm, age=30, constant=0 (average of +5 for male, -161 for female)
+            const bmr = 10 * weight + 6.25 * 170 - 5 * 30;
+            
+            // Calculate TDEE (Total Daily Energy Expenditure)
+            const tdee = Math.round(bmr * activityMultipliers[activity]);
+            
+            // Calculate macronutrients
+            // Carbs: 50% of calories (moderate approach)
+            const carbCalories = tdee * 0.50;
+            const carbs = Math.round(carbCalories / 4); // 4 calories per gram of carbs
+            
+            // Protein: varies by activity level
+            let proteinPerKg;
+            if (activity === 'sedentary') {
+                proteinPerKg = 0.8; // RDA for sedentary
+            } else if (activity === 'moderate') {
+                proteinPerKg = 1.4; // Moderate activity
+            } else { // active
+                proteinPerKg = 1.8; // Active/athletic
+            }
+            const protein = Math.round(weight * proteinPerKg);
+            
+            // Fat: remaining calories after carbs and protein
+            const proteinCalories = protein * 4;
+            const fatCalories = tdee - carbCalories - proteinCalories;
+            const fat = Math.round(fatCalories / 9); // 9 calories per gram of fat
+            
+            return {
+                calories: tdee,
+                carbs: carbs,
+                protein: protein,
+                fat: fat
+            };
+        }
+
+        function updateNutrition() {
+            const weight = parseInt(currentWeight);
+            const optimal = calculateNutrition(weight, currentActivity);
+            const actual = calculateFoodNutrition();
+            const totalCost = calculateTotalCost();
+            
+            // Update optimal values (blue)
+            document.getElementById('calorieValue').textContent = optimal.calories;
+            document.getElementById('carbValue').textContent = optimal.carbs;
+            document.getElementById('proteinValue').textContent = optimal.protein;
+            document.getElementById('fatValue').textContent = optimal.fat;
+
+            // Update actual values with color coding
+            document.getElementById('calorieActual').textContent = actual.calories;
+            document.getElementById('carbActual').textContent = actual.carbs;
+            document.getElementById('proteinActual').textContent = actual.protein;
+            document.getElementById('fatActual').textContent = actual.fat;
+
+            // Update total cost
+            document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+
+            // Apply color classes
+            const calorieContainer = document.getElementById('calorieActualContainer');
+            const carbContainer = document.getElementById('carbActualContainer');
+            const proteinContainer = document.getElementById('proteinActualContainer');
+            const fatContainer = document.getElementById('fatActualContainer');
+
+            // Remove all color classes
+            [calorieContainer, carbContainer, proteinContainer, fatContainer].forEach(container => {
+                container.classList.remove('green', 'orange', 'red');
+            });
+
+            // Add appropriate color classes
+            calorieContainer.classList.add(getColorClass(actual.calories, optimal.calories));
+            carbContainer.classList.add(getColorClass(actual.carbs, optimal.carbs));
+            proteinContainer.classList.add(getColorClass(actual.protein, optimal.protein));
+            fatContainer.classList.add(getColorClass(actual.fat, optimal.fat));
+        }
+
+        function updateFigure() {
+            const filename = `images/${currentWeight}-${currentActivity}.svg`;
+            const figureContainer = document.getElementById('figureContainer');
+            figureContainer.innerHTML = `<img src="${filename}" alt="Body type: ${currentWeight}kg, ${currentActivity}">`;
+        }
+
+        function update() {
+            updateFigure();
+            updateNutrition();
+        }
+
+        // Weight buttons
+        document.querySelectorAll('[data-weight]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-weight]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentWeight = this.dataset.weight;
+                update();
+            });
+        });
+
+        // Activity buttons
+        document.querySelectorAll('[data-activity]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-activity]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentActivity = this.dataset.activity;
+                update();
+            });
+        });
+
+        // Food portion sliders
+        document.getElementById('wheatFlour').addEventListener('input', function() {
+            wheatFlourPortions = parseInt(this.value);
+            document.getElementById('wheatFlourValue').textContent = wheatFlourPortions;
+            updateNutrition();
+        });
+
+        document.getElementById('soyMince').addEventListener('input', function() {
+            soyMincePortions = parseInt(this.value);
+            document.getElementById('soyMinceValue').textContent = soyMincePortions;
+            updateNutrition();
+        });
+
+        document.getElementById('rapeseedOil').addEventListener('input', function() {
+            rapeseedOilPortions = parseInt(this.value);
+            document.getElementById('rapeseedOilValue').textContent = rapeseedOilPortions;
+            updateNutrition();
+        });
+
+        document.getElementById('pasta').addEventListener('input', function() {
+            pastaPortions = parseInt(this.value);
+            document.getElementById('pastaValue').textContent = pastaPortions;
+            updateNutrition();
+        });
+
+        document.getElementById('driedPeas').addEventListener('input', function() {
+            driedPeasPortions = parseInt(this.value);
+            document.getElementById('driedPeasValue').textContent = driedPeasPortions;
+            updateNutrition();
+        });
+
+        document.getElementById('margarine').addEventListener('input', function() {
+            margarinePortions = parseInt(this.value);
+            document.getElementById('margarineValue').textContent = margarinePortions;
+            updateNutrition();
+        });
+
+        document.getElementById('sugar').addEventListener('input', function() {
+            sugarPortions = parseInt(this.value);
+            document.getElementById('sugarValue').textContent = sugarPortions;
+            updateNutrition();
+        });
+
+        document.getElementById('lightMilk').addEventListener('input', function() {
+            lightMilkPortions = parseInt(this.value);
+            document.getElementById('lightMilkValue').textContent = lightMilkPortions;
+            updateNutrition();
+        });
+
+        document.getElementById('eggs').addEventListener('input', function() {
+            eggsPortions = parseInt(this.value);
+            document.getElementById('eggsValue').textContent = eggsPortions;
+            updateNutrition();
+        });
+
+        // Initialize with default figure and nutrition
+        update();
+    </script>
+</body>
+</html>
