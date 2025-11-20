@@ -219,6 +219,18 @@
             color: #dc3545;
         }
 
+        .nutrition-value.actual.green {
+            color: #28a745;
+        }
+
+        .nutrition-value.actual.orange {
+            color: #fd7e14;
+        }
+
+        .nutrition-value.actual.red {
+            color: #dc3545;
+        }
+
         .nutrition-unit {
             font-size: 14px;
             color: #888;
@@ -329,7 +341,7 @@
                     <div class="nutrition-value">
                         <span id="carbValue">0</span><span class="nutrition-unit">g</span>
                     </div>
-                    <div class="nutrition-value actual">
+                    <div class="nutrition-value actual" id="carbActualContainer">
                         <span id="carbActual">0</span><span class="nutrition-unit">g</span>
                     </div>
                 </div>
@@ -341,7 +353,7 @@
                     <div class="nutrition-value">
                         <span id="proteinValue">0</span><span class="nutrition-unit">g</span>
                     </div>
-                    <div class="nutrition-value actual">
+                    <div class="nutrition-value actual" id="proteinActualContainer">
                         <span id="proteinActual">0</span><span class="nutrition-unit">g</span>
                     </div>
                 </div>
@@ -353,7 +365,7 @@
                     <div class="nutrition-value">
                         <span id="fatValue">0</span><span class="nutrition-unit">g</span>
                     </div>
-                    <div class="nutrition-value actual">
+                    <div class="nutrition-value actual" id="fatActualContainer">
                         <span id="fatActual">0</span><span class="nutrition-unit">g</span>
                     </div>
                 </div>
@@ -365,7 +377,7 @@
                     <div class="nutrition-value">
                         <span id="calorieValue">0</span><span class="nutrition-unit">kcal</span>
                     </div>
-                    <div class="nutrition-value actual">
+                    <div class="nutrition-value actual" id="calorieActualContainer">
                         <span id="calorieActual">0</span><span class="nutrition-unit">kcal</span>
                     </div>
                 </div>
@@ -409,144 +421,17 @@
             }
         };
 
+        function getColorClass(actual, optimal) {
+            if (actual > optimal) {
+                return 'green';
+            } else if (actual >= optimal * 0.9) {
+                return 'orange';
+            } else {
+                return 'red';
+            }
+        }
+
         function calculateFoodNutrition() {
             // Wheat flour: 50g per portion
             const wheatFlourGrams = wheatFlourPortions * 50;
-            const wheatFlourCarbs = (nutritionPer100g.wheatFlour.carbs * wheatFlourGrams) / 100;
-            const wheatFlourProtein = (nutritionPer100g.wheatFlour.protein * wheatFlourGrams) / 100;
-            const wheatFlourFat = (nutritionPer100g.wheatFlour.fat * wheatFlourGrams) / 100;
-            const wheatFlourCalories = (nutritionPer100g.wheatFlour.calories * wheatFlourGrams) / 100;
-
-            // Soy mince: 20g per portion
-            const soyMinceGrams = soyMincePortions * 20;
-            const soyMinceCarbs = (nutritionPer100g.soyMince.carbs * soyMinceGrams) / 100;
-            const soyMinceProtein = (nutritionPer100g.soyMince.protein * soyMinceGrams) / 100;
-            const soyMinceFat = (nutritionPer100g.soyMince.fat * soyMinceGrams) / 100;
-            const soyMinceCalories = (nutritionPer100g.soyMince.calories * soyMinceGrams) / 100;
-
-            // Rapeseed oil: 10g per portion
-            const rapeseedOilGrams = rapeseedOilPortions * 10;
-            const rapeseedOilCarbs = (nutritionPer100g.rapeseedOil.carbs * rapeseedOilGrams) / 100;
-            const rapeseedOilProtein = (nutritionPer100g.rapeseedOil.protein * rapeseedOilGrams) / 100;
-            const rapeseedOilFat = (nutritionPer100g.rapeseedOil.fat * rapeseedOilGrams) / 100;
-            const rapeseedOilCalories = (nutritionPer100g.rapeseedOil.calories * rapeseedOilGrams) / 100;
-
-            return {
-                carbs: Math.round(wheatFlourCarbs + soyMinceCarbs + rapeseedOilCarbs),
-                protein: Math.round(wheatFlourProtein + soyMinceProtein + rapeseedOilProtein),
-                fat: Math.round(wheatFlourFat + soyMinceFat + rapeseedOilFat),
-                calories: Math.round(wheatFlourCalories + soyMinceCalories + rapeseedOilCalories)
-            };
-        }
-
-        function calculateNutrition(weight, activity) {
-            // Calculate BMR using Mifflin-St Jeor Equation (simplified, assuming average height and age)
-            // For a gender-neutral average: BMR ≈ 10 × weight(kg) + 6.25 × height(cm) - 5 × age + constant
-            // Using average values: height=170cm, age=30, constant=0 (average of +5 for male, -161 for female)
-            const bmr = 10 * weight + 6.25 * 170 - 5 * 30;
-            
-            // Calculate TDEE (Total Daily Energy Expenditure)
-            const tdee = Math.round(bmr * activityMultipliers[activity]);
-            
-            // Calculate macronutrients
-            // Carbs: 50% of calories (moderate approach)
-            const carbCalories = tdee * 0.50;
-            const carbs = Math.round(carbCalories / 4); // 4 calories per gram of carbs
-            
-            // Protein: varies by activity level
-            let proteinPerKg;
-            if (activity === 'sedentary') {
-                proteinPerKg = 0.8; // RDA for sedentary
-            } else if (activity === 'moderate') {
-                proteinPerKg = 1.4; // Moderate activity
-            } else { // active
-                proteinPerKg = 1.8; // Active/athletic
-            }
-            const protein = Math.round(weight * proteinPerKg);
-            
-            // Fat: remaining calories after carbs and protein
-            const proteinCalories = protein * 4;
-            const fatCalories = tdee - carbCalories - proteinCalories;
-            const fat = Math.round(fatCalories / 9); // 9 calories per gram of fat
-            
-            return {
-                calories: tdee,
-                carbs: carbs,
-                protein: protein,
-                fat: fat
-            };
-        }
-
-        function updateNutrition() {
-            const weight = parseInt(currentWeight);
-            const optimal = calculateNutrition(weight, currentActivity);
-            const actual = calculateFoodNutrition();
-            
-            // Update optimal values (blue)
-            document.getElementById('calorieValue').textContent = optimal.calories;
-            document.getElementById('carbValue').textContent = optimal.carbs;
-            document.getElementById('proteinValue').textContent = optimal.protein;
-            document.getElementById('fatValue').textContent = optimal.fat;
-
-            // Update actual values (red)
-            document.getElementById('calorieActual').textContent = actual.calories;
-            document.getElementById('carbActual').textContent = actual.carbs;
-            document.getElementById('proteinActual').textContent = actual.protein;
-            document.getElementById('fatActual').textContent = actual.fat;
-        }
-
-        function updateFigure() {
-            const filename = `images/${currentWeight}-${currentActivity}.svg`;
-            const figureContainer = document.getElementById('figureContainer');
-            figureContainer.innerHTML = `<img src="${filename}" alt="Body type: ${currentWeight}kg, ${currentActivity}">`;
-        }
-
-        function update() {
-            updateFigure();
-            updateNutrition();
-        }
-
-        // Weight buttons
-        document.querySelectorAll('[data-weight]').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('[data-weight]').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentWeight = this.dataset.weight;
-                update();
-            });
-        });
-
-        // Activity buttons
-        document.querySelectorAll('[data-activity]').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('[data-activity]').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                currentActivity = this.dataset.activity;
-                update();
-            });
-        });
-
-        // Food portion sliders
-        document.getElementById('wheatFlour').addEventListener('input', function() {
-            wheatFlourPortions = parseInt(this.value);
-            document.getElementById('wheatFlourValue').textContent = wheatFlourPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('soyMince').addEventListener('input', function() {
-            soyMincePortions = parseInt(this.value);
-            document.getElementById('soyMinceValue').textContent = soyMincePortions;
-            updateNutrition();
-        });
-
-        document.getElementById('rapeseedOil').addEventListener('input', function() {
-            rapeseedOilPortions = parseInt(this.value);
-            document.getElementById('rapeseedOilValue').textContent = rapeseedOilPortions;
-            updateNutrition();
-        });
-
-        // Initialize with default figure and nutrition
-        update();
-    </script>
-</body>
-</html>
+            const wheatFlourCarbs = (nutrit
