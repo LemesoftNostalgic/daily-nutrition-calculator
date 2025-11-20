@@ -349,6 +349,30 @@
                             <span class="portion-value"><span id="rapeseedOilValue">0</span> portions</span>
                         </div>
                     </div>
+                    <div class="portion-control">
+                        <h3>Pasta</h3>
+                        <div class="portion-info">70 g per portion</div>
+                        <div class="portion-selector">
+                            <input type="range" id="pasta" min="0" max="10" value="0" step="1">
+                            <span class="portion-value"><span id="pastaValue">0</span> portions</span>
+                        </div>
+                    </div>
+                    <div class="portion-control">
+                        <h3>Dried Peas</h3>
+                        <div class="portion-info">20 g per portion</div>
+                        <div class="portion-selector">
+                            <input type="range" id="driedPeas" min="0" max="10" value="0" step="1">
+                            <span class="portion-value"><span id="driedPeasValue">0</span> portions</span>
+                        </div>
+                    </div>
+                    <div class="portion-control">
+                        <h3>Margarine</h3>
+                        <div class="portion-info">10 g per portion</div>
+                        <div class="portion-selector">
+                            <input type="range" id="margarine" min="0" max="10" value="0" step="1">
+                            <span class="portion-value"><span id="margarineValue">0</span> portions</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -425,6 +449,9 @@
         let wheatFlourPortions = 0;
         let soyMincePortions = 0;
         let rapeseedOilPortions = 0;
+        let pastaPortions = 0;
+        let driedPeasPortions = 0;
+        let margarinePortions = 0;
 
         // Activity multipliers for calculating TDEE (Total Daily Energy Expenditure)
         const activityMultipliers = {
@@ -452,6 +479,24 @@
                 protein: 0,
                 fat: 100.0,
                 calories: 884
+            },
+            pasta: {
+                carbs: 75.0,
+                protein: 13.0,
+                fat: 1.5,
+                calories: 371
+            },
+            driedPeas: {
+                carbs: 60.0,
+                protein: 21.0,
+                fat: 2.0,
+                calories: 341
+            },
+            margarine: {
+                carbs: 0.7,
+                protein: 0.2,
+                fat: 80.0,
+                calories: 720
             }
         };
 
@@ -459,7 +504,10 @@
         const pricesPerKg = {
             wheatFlour: 0.68,
             soyMince: 6.10,
-            rapeseedOil: 2.75
+            rapeseedOil: 2.75,
+            pasta: 0.86,
+            driedPeas: 1.98,
+            margarine: 3.0
         };
 
         function getColorClass(actual, optimal) {
@@ -494,11 +542,32 @@
             const rapeseedOilFat = (nutritionPer100g.rapeseedOil.fat * rapeseedOilGrams) / 100;
             const rapeseedOilCalories = (nutritionPer100g.rapeseedOil.calories * rapeseedOilGrams) / 100;
 
+            // Pasta: 70g per portion
+            const pastaGrams = pastaPortions * 70;
+            const pastaCarbs = (nutritionPer100g.pasta.carbs * pastaGrams) / 100;
+            const pastaProtein = (nutritionPer100g.pasta.protein * pastaGrams) / 100;
+            const pastaFat = (nutritionPer100g.pasta.fat * pastaGrams) / 100;
+            const pastaCalories = (nutritionPer100g.pasta.calories * pastaGrams) / 100;
+
+            // Dried peas: 20g per portion
+            const driedPeasGrams = driedPeasPortions * 20;
+            const driedPeasCarbs = (nutritionPer100g.driedPeas.carbs * driedPeasGrams) / 100;
+            const driedPeasProtein = (nutritionPer100g.driedPeas.protein * driedPeasGrams) / 100;
+            const driedPeasFat = (nutritionPer100g.driedPeas.fat * driedPeasGrams) / 100;
+            const driedPeasCalories = (nutritionPer100g.driedPeas.calories * driedPeasGrams) / 100;
+
+            // Margarine: 10g per portion
+            const margarineGrams = margarinePortions * 10;
+            const margarineCarbs = (nutritionPer100g.margarine.carbs * margarineGrams) / 100;
+            const margarineProtein = (nutritionPer100g.margarine.protein * margarineGrams) / 100;
+            const margarineFat = (nutritionPer100g.margarine.fat * margarineGrams) / 100;
+            const margarineCalories = (nutritionPer100g.margarine.calories * margarineGrams) / 100;
+
             return {
-                carbs: Math.round(wheatFlourCarbs + soyMinceCarbs + rapeseedOilCarbs),
-                protein: Math.round(wheatFlourProtein + soyMinceProtein + rapeseedOilProtein),
-                fat: Math.round(wheatFlourFat + soyMinceFat + rapeseedOilFat),
-                calories: Math.round(wheatFlourCalories + soyMinceCalories + rapeseedOilCalories)
+                carbs: Math.round(wheatFlourCarbs + soyMinceCarbs + rapeseedOilCarbs + pastaCarbs + driedPeasCarbs + margarineCarbs),
+                protein: Math.round(wheatFlourProtein + soyMinceProtein + rapeseedOilProtein + pastaProtein + driedPeasProtein + margarineProtein),
+                fat: Math.round(wheatFlourFat + soyMinceFat + rapeseedOilFat + pastaFat + driedPeasFat + margarineFat),
+                calories: Math.round(wheatFlourCalories + soyMinceCalories + rapeseedOilCalories + pastaCalories + driedPeasCalories + margarineCalories)
             };
         }
 
@@ -507,12 +576,18 @@
             const wheatFlourGrams = wheatFlourPortions * 50;
             const soyMinceGrams = soyMincePortions * 20;
             const rapeseedOilGrams = rapeseedOilPortions * 10;
+            const pastaGrams = pastaPortions * 70;
+            const driedPeasGrams = driedPeasPortions * 20;
+            const margarineGrams = margarinePortions * 10;
 
             const wheatFlourCost = (wheatFlourGrams / 1000) * pricesPerKg.wheatFlour;
             const soyMinceCost = (soyMinceGrams / 1000) * pricesPerKg.soyMince;
             const rapeseedOilCost = (rapeseedOilGrams / 1000) * pricesPerKg.rapeseedOil;
+            const pastaCost = (pastaGrams / 1000) * pricesPerKg.pasta;
+            const driedPeasCost = (driedPeasGrams / 1000) * pricesPerKg.driedPeas;
+            const margarineCost = (margarineGrams / 1000) * pricesPerKg.margarine;
 
-            return wheatFlourCost + soyMinceCost + rapeseedOilCost;
+            return wheatFlourCost + soyMinceCost + rapeseedOilCost + pastaCost + driedPeasCost + margarineCost;
         }
 
         function calculateNutrition(weight, activity) {
@@ -639,6 +714,24 @@
         document.getElementById('rapeseedOil').addEventListener('input', function() {
             rapeseedOilPortions = parseInt(this.value);
             document.getElementById('rapeseedOilValue').textContent = rapeseedOilPortions;
+            updateNutrition();
+        });
+
+        document.getElementById('pasta').addEventListener('input', function() {
+            pastaPortions = parseInt(this.value);
+            document.getElementById('pastaValue').textContent = pastaPortions;
+            updateNutrition();
+        });
+
+        document.getElementById('driedPeas').addEventListener('input', function() {
+            driedPeasPortions = parseInt(this.value);
+            document.getElementById('driedPeasValue').textContent = driedPeasPortions;
+            updateNutrition();
+        });
+
+        document.getElementById('margarine').addEventListener('input', function() {
+            margarinePortions = parseInt(this.value);
+            document.getElementById('margarineValue').textContent = margarinePortions;
             updateNutrition();
         });
 
