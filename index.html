@@ -243,6 +243,33 @@
             margin-top: 4px;
         }
 
+        .cost-display {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .cost-display h3 {
+            color: #856404;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .cost-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #856404;
+        }
+
+        .cost-unit {
+            font-size: 20px;
+            color: #856404;
+            margin-left: 5px;
+        }
+
         @media (max-width: 768px) {
             .content-area {
                 flex-direction: column;
@@ -381,6 +408,13 @@
                         <span id="calorieActual">0</span><span class="nutrition-unit">kcal</span>
                     </div>
                 </div>
+                
+                <div class="cost-display">
+                    <h3>Total Cost</h3>
+                    <div>
+                        <span class="cost-value" id="totalCost">0.00</span><span class="cost-unit">EUR</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -421,6 +455,13 @@
             }
         };
 
+        // Prices in EUR per kg
+        const pricesPerKg = {
+            wheatFlour: 0.68,
+            soyMince: 6.10,
+            rapeseedOil: 2.75
+        };
+
         function getColorClass(actual, optimal) {
             if (actual >= optimal) {
                 return 'green';
@@ -459,6 +500,19 @@
                 fat: Math.round(wheatFlourFat + soyMinceFat + rapeseedOilFat),
                 calories: Math.round(wheatFlourCalories + soyMinceCalories + rapeseedOilCalories)
             };
+        }
+
+        function calculateTotalCost() {
+            // Calculate cost based on grams and price per kg
+            const wheatFlourGrams = wheatFlourPortions * 50;
+            const soyMinceGrams = soyMincePortions * 20;
+            const rapeseedOilGrams = rapeseedOilPortions * 10;
+
+            const wheatFlourCost = (wheatFlourGrams / 1000) * pricesPerKg.wheatFlour;
+            const soyMinceCost = (soyMinceGrams / 1000) * pricesPerKg.soyMince;
+            const rapeseedOilCost = (rapeseedOilGrams / 1000) * pricesPerKg.rapeseedOil;
+
+            return wheatFlourCost + soyMinceCost + rapeseedOilCost;
         }
 
         function calculateNutrition(weight, activity) {
@@ -503,6 +557,7 @@
             const weight = parseInt(currentWeight);
             const optimal = calculateNutrition(weight, currentActivity);
             const actual = calculateFoodNutrition();
+            const totalCost = calculateTotalCost();
             
             // Update optimal values (blue)
             document.getElementById('calorieValue').textContent = optimal.calories;
@@ -515,6 +570,9 @@
             document.getElementById('carbActual').textContent = actual.carbs;
             document.getElementById('proteinActual').textContent = actual.protein;
             document.getElementById('fatActual').textContent = actual.fat;
+
+            // Update total cost
+            document.getElementById('totalCost').textContent = totalCost.toFixed(2);
 
             // Apply color classes
             const calorieContainer = document.getElementById('calorieActualContainer');
