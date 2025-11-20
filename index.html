@@ -171,6 +171,7 @@
             max-width: 100px;
             height: auto;
             max-height: 200px;
+            object-fit: contain;
         }
 
         .nutrition-info {
@@ -719,6 +720,9 @@
         let yogurtPortions = 0;
         let applesPortions = 0;
 
+        // Supported image formats - will try in order
+        const imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
+
         // Activity multipliers for calculating TDEE (Total Daily Energy Expenditure)
         const activityMultipliers = {
             'sedentary': 1.2,    // Little or no exercise
@@ -1004,10 +1008,37 @@
             fatContainer.classList.add(getColorClass(actual.fat, optimal.fat));
         }
 
+        function tryLoadImage(basePath, formatIndex = 0) {
+            if (formatIndex >= imageFormats.length) {
+                // All formats failed, show error message
+                const figureContainer = document.getElementById('figureContainer');
+                figureContainer.innerHTML = `<div style="color: #888; text-align: center; padding: 20px;">
+                    <p>Image not found</p>
+                    <p style="font-size: 12px; margin-top: 10px;">${basePath}.jpg/png/svg</p>
+                    <p style="font-size: 11px; margin-top: 5px; color: #aaa;">Place your image files in the images/ folder</p>
+                </div>`;
+                return;
+            }
+
+            const format = imageFormats[formatIndex];
+            const img = new Image();
+            
+            img.onload = function() {
+                const figureContainer = document.getElementById('figureContainer');
+                figureContainer.innerHTML = `<img src="${basePath}.${format}" alt="Body type: ${currentWeight}kg, ${currentActivity}">`;
+            };
+            
+            img.onerror = function() {
+                // Try next format
+                tryLoadImage(basePath, formatIndex + 1);
+            };
+            
+            img.src = `${basePath}.${format}`;
+        }
+
         function updateFigure() {
-            const filename = `images/${currentWeight}-${currentActivity}.svg`;
-            const figureContainer = document.getElementById('figureContainer');
-            figureContainer.innerHTML = `<img src="${filename}" alt="Body type: ${currentWeight}kg, ${currentActivity}">`;
+            const basePath = `images/${currentWeight}-${currentActivity}`;
+            tryLoadImage(basePath);
         }
 
         function update() {
