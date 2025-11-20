@@ -202,10 +202,25 @@
             border-bottom: none;
         }
 
+        .nutrition-item.sub-item {
+            padding-left: 20px;
+            background: #f0f0f0;
+            margin-left: 10px;
+            margin-right: 10px;
+            border-radius: 4px;
+            border-bottom: none;
+        }
+
         .nutrition-label {
             font-weight: 600;
             color: #555;
             font-size: 16px;
+        }
+
+        .nutrition-label.sub-label {
+            font-weight: 500;
+            font-size: 14px;
+            color: #666;
         }
 
         .nutrition-value {
@@ -213,6 +228,10 @@
             font-weight: 700;
             color: #667eea;
             text-align: right;
+        }
+
+        .nutrition-value.sub-value {
+            font-size: 16px;
         }
 
         .nutrition-value.actual {
@@ -432,6 +451,18 @@
                         <span id="proteinActual">0</span><span class="nutrition-unit">g</span>
                     </div>
                 </div>
+                <div class="nutrition-item sub-item">
+                    <div>
+                        <div class="nutrition-label sub-label">Lysine</div>
+                        <div class="nutrition-subtext">Essential amino acid</div>
+                    </div>
+                    <div class="nutrition-value sub-value">
+                        <span id="lysineValue">0</span><span class="nutrition-unit">g</span>
+                    </div>
+                    <div class="nutrition-value actual sub-value" id="lysineActualContainer">
+                        <span id="lysineActual">0</span><span class="nutrition-unit">g</span>
+                    </div>
+                </div>
                 <div class="nutrition-item">
                     <div>
                         <div class="nutrition-label">Fat</div>
@@ -493,55 +524,64 @@
                 carbs: 76.3,
                 protein: 10.3,
                 fat: 1.0,
-                calories: 364
+                calories: 364,
+                lysinePercent: 3.0
             },
             soyMince: {
                 carbs: 30.0,
                 protein: 50.0,
                 fat: 1.0,
-                calories: 330
+                calories: 330,
+                lysinePercent: 6.6
             },
             rapeseedOil: {
                 carbs: 0,
                 protein: 0,
                 fat: 100.0,
-                calories: 884
+                calories: 884,
+                lysinePercent: 0
             },
             pasta: {
                 carbs: 75.0,
                 protein: 13.0,
                 fat: 1.5,
-                calories: 371
+                calories: 371,
+                lysinePercent: 3.0
             },
             driedPeas: {
                 carbs: 60.0,
                 protein: 21.0,
                 fat: 2.0,
-                calories: 341
+                calories: 341,
+                lysinePercent: 8.1
             },
             margarine: {
                 carbs: 0.7,
                 protein: 0.2,
                 fat: 80.0,
-                calories: 720
+                calories: 720,
+                lysinePercent: 0
             },
             sugar: {
                 carbs: 99.8,
                 protein: 0,
                 fat: 0,
-                calories: 387
+                calories: 387,
+                lysinePercent: 0
             },
             lightMilk: {
                 carbs: 4.8,
                 protein: 3.5,
                 fat: 1.5,
-                calories: 46
+                calories: 46,
+                lysinePercent: 8.4
             },
             eggs: {
                 carbs: 1.1,
                 protein: 13.0,
                 fat: 11.0,
-                calories: 155
+                calories: 155,
+                lysinePercent: 7.2
             }
         };
 
@@ -569,15 +609,17 @@
         }
 
         function calculateFoodNutrition() {
-            let totalCarbs = 0, totalProtein = 0, totalFat = 0, totalCalories = 0;
+            let totalCarbs = 0, totalProtein = 0, totalFat = 0, totalCalories = 0, totalLysine = 0;
 
             // Helper function to calculate nutrition for each food
             const addFood = (portions, gramsPerPortion, foodType) => {
                 const grams = portions * gramsPerPortion;
+                const protein = (nutritionPer100g[foodType].protein * grams) / 100;
                 totalCarbs += (nutritionPer100g[foodType].carbs * grams) / 100;
-                totalProtein += (nutritionPer100g[foodType].protein * grams) / 100;
+                totalProtein += protein;
                 totalFat += (nutritionPer100g[foodType].fat * grams) / 100;
                 totalCalories += (nutritionPer100g[foodType].calories * grams) / 100;
+                totalLysine += (protein * nutritionPer100g[foodType].lysinePercent) / 100;
             };
 
             // Calculate for all foods
@@ -595,7 +637,8 @@
                 carbs: Math.round(totalCarbs),
                 protein: Math.round(totalProtein),
                 fat: Math.round(totalFat),
-                calories: Math.round(totalCalories)
+                calories: Math.round(totalCalories),
+                lysine: Math.round(totalLysine * 10) / 10
             };
         }
 
@@ -647,6 +690,9 @@
             }
             const protein = Math.round(weight * proteinPerKg);
             
+            // Lysine: approximately 4.5% of protein requirement (WHO recommendation ~45 mg/kg body weight)
+            const lysine = Math.round((weight * 0.045) * 10) / 10;
+            
             // Fat: remaining calories after carbs and protein
             const proteinCalories = protein * 4;
             const fatCalories = tdee - carbCalories - proteinCalories;
@@ -656,6 +702,7 @@
                 calories: tdee,
                 carbs: carbs,
                 protein: protein,
+                lysine: lysine,
                 fat: fat
             };
         }
@@ -670,12 +717,14 @@
             document.getElementById('calorieValue').textContent = optimal.calories;
             document.getElementById('carbValue').textContent = optimal.carbs;
             document.getElementById('proteinValue').textContent = optimal.protein;
+            document.getElementById('lysineValue').textContent = optimal.lysine;
             document.getElementById('fatValue').textContent = optimal.fat;
 
             // Update actual values with color coding
             document.getElementById('calorieActual').textContent = actual.calories;
             document.getElementById('carbActual').textContent = actual.carbs;
             document.getElementById('proteinActual').textContent = actual.protein;
+            document.getElementById('lysineActual').textContent = actual.lysine;
             document.getElementById('fatActual').textContent = actual.fat;
 
             // Update total cost
@@ -685,10 +734,11 @@
             const calorieContainer = document.getElementById('calorieActualContainer');
             const carbContainer = document.getElementById('carbActualContainer');
             const proteinContainer = document.getElementById('proteinActualContainer');
+            const lysineContainer = document.getElementById('lysineActualContainer');
             const fatContainer = document.getElementById('fatActualContainer');
 
             // Remove all color classes
-            [calorieContainer, carbContainer, proteinContainer, fatContainer].forEach(container => {
+            [calorieContainer, carbContainer, proteinContainer, lysineContainer, fatContainer].forEach(container => {
                 container.classList.remove('green', 'orange', 'red');
             });
 
@@ -696,6 +746,7 @@
             calorieContainer.classList.add(getColorClass(actual.calories, optimal.calories));
             carbContainer.classList.add(getColorClass(actual.carbs, optimal.carbs));
             proteinContainer.classList.add(getColorClass(actual.protein, optimal.protein));
+            lysineContainer.classList.add(getColorClass(actual.lysine, optimal.lysine));
             fatContainer.classList.add(getColorClass(actual.fat, optimal.fat));
         }
 
