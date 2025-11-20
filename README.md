@@ -1,57 +1,44 @@
 # Daily Nutrition Calculator
+ 
+A web-based nutrition calculator that helps you plan your daily meals and calculate monthly grocery costs
 
-A web-based nutrition calculator that helps you plan your daily meals and calculate monthly grocery costs.
+## Live Demo
 
-## Image Files
+Visit the live application at: https://lemesoftnostalgic.github.io/daily-nutrition-calculator
 
-The application now supports multiple image formats for body type visualizations:
-- JPG/JPEG
-- PNG
-- WebP
-- SVG
+## Features
 
-### How to Replace Images
+- Calculate optimal daily nutrition based on body weight and activity level
+- Track 12 different food items with portion control
+- Monitor carbohydrates, protein, lysine, fat, and total calories
 
-To use your own realistic photos instead of the current SVG illustrations:
+## Food Items Tracked
 
-1. Prepare 9 images representing different body types:
-   - 60kg-sedentary
-   - 60kg-moderate
-   - 60kg-active
-   - 75kg-sedentary
-   - 75kg-moderate
-   - 75kg-active
-   - 90kg-sedentary
-   - 90kg-moderate
-   - 90kg-active
+1. Wheat Flour (50g per portion)
+2. Dried Soy Mince (20g per portion)
+3. Rapeseed Oil (10g per portion)
+4. Pasta (70g per portion)
+5. Dried Peas (20g per portion)
+6. Margarine (10g per portion)
+7. Sugar (10g per portion)
+8. Light Milk (200g per portion)
+9. Eggs (60g per portion)
+10. Oat Flakes (40g per portion)
+11. Yogurt - Plain (200g per portion)
+12. Apples (120g per portion)
 
-2. Save them in the `images/` folder with the naming format:
-   - `60-sedentary.jpg` (or .png, .webp)
-   - `60-moderate.jpg`
-   - `60-active.jpg`
-   - `75-sedentary.jpg`
-   - `75-moderate.jpg`
-   - `75-active.jpg`
-   - `90-sedentary.jpg`
-   - `90-moderate.jpg`
-   - `90-active.jpg`
+## Monthly Grocery List
 
-3. The application will automatically detect and load the images in order of preference: JPG → PNG → WebP → SVG
+The application can generate a complete monthly grocery shopping list based on your daily selections, including
 
-### Image Sources
+- Full package quantities (rounded up)
+- Brand names
+- Package sizes
+- Total cost in EUR
 
-You can find appropriate body type images from:
-- **Unsplash** (unsplash.com) - Free high-quality photos
-- **Pexels** (pexels.com) - Free stock photos
-- **Pixabay** (pixabay.com) - Free images
-- Search terms: "fitness body types", "athletic person", "body composition"
+All calculations assume a 30-day month
 
-### Image Requirements
+## License
 
-- Recommended dimensions: 200-400px width
-- Aspect ratio: Portrait orientation (approximately 1:2)
-- File size: Keep under 200KB each for fast loading
-- Background: Preferably plain or minimal background
-- Subject: Androgynous or neutral representation showing full body
+This project is open source and available for personal and educational use
 
-The application includes fallback behavior - if an image is not found, it will display a friendly error message indicating which image file is missing.
