@@ -1,0 +1,44 @@
+<svg width="200" height="400" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Head -->
+  <ellipse cx="100" cy="45" rx="25" ry="30" fill="#F4C2A0" stroke="#8B4513" stroke-width="1.5"/>
+  <!-- Neck (strong) -->
+  <rect x="89" y="72" width="22" height="13" fill="#F4C2A0" stroke="#8B4513" stroke-width="1"/>
+  <!-- Torso (athletic build) -->
+  <path d="M 69 85 Q 66 115 69 160 L 80 206 L 120 206 L 131 160 Q 134 115 131 85 Z" fill="#6B9BD1" stroke="#4A5568" stroke-width="1.5"/>
+  <!-- Strong chest definition -->
+  <path d="M 78 95 Q 100 100 122 95" fill="none" stroke="#5A8BC0" stroke-width="2.5" opacity="0.6"/>
+  <line x1="87" y1="98" x2="85" y2="115" stroke="#5A8BC0" stroke-width="2" opacity="0.5"/>
+  <line x1="113" y1="98" x2="115" y2="115" stroke="#5A8BC0" stroke-width="2" opacity="0.5"/>
+  <!-- Strong abs -->
+  <line x1="100" y1="110" x2="100" y2="185" stroke="#5A8BC0" stroke-width="2.5" opacity="0.6"/>
+  <line x1="86" y1="130" x2="114" y2="130" stroke="#5A8BC0" stroke-width="2" opacity="0.5"/>
+  <line x1="88" y1="150" x2="112" y2="150" stroke="#5A8BC0" stroke-width="2" opacity="0.5"/>
+  <line x1="90" y1="170" x2="110" y2="170" stroke="#5A8BC0" stroke-width="1.5" opacity="0.4"/>
+  <!-- Arms (muscular) -->
+  <path d="M 69 91 Q 44 112 41 148 Q 39 165 44 173" fill="none" stroke="#F4C2A0" stroke-width="18" stroke-linecap="round"/>
+  <path d="M 131 91 Q 156 112 159 148 Q 161 165 156 173" fill="none" stroke="#F4C2A0" stroke-width="18" stroke-linecap="round"/>
+  <!-- Strong biceps -->
+  <ellipse cx="47" cy="123" rx="6" ry="12" fill="#E8B090" opacity="0.6"/>
+  <ellipse cx="153" cy="123" rx="6" ry="12" fill="#E8B090" opacity="0.6"/>
+  <!-- Hands -->
+  <ellipse cx="44" cy="176" rx="7" ry="9" fill="#E8B090"/>
+  <ellipse cx="156" cy="176" rx="7" ry="9" fill="#E8B090"/>
+  <!-- Pelvis/Hips -->
+  <ellipse cx="100" cy="211" rx="40" ry="20" fill="#4A5568" stroke="#2D3748" stroke-width="1"/>
+  <!-- Legs (athletic) -->
+  <path d="M 80 211 L 75 286 L 72 341 L 70 361" fill="none" stroke="#2C5282" stroke-width="25" stroke-linecap="round"/>
+  <path d="M 120 211 L 125 286 L 128 341 L 130 361" fill="none" stroke="#2C5282" stroke-width="25" stroke-linecap="round"/>
+  <!-- Strong thigh definition -->
+  <ellipse cx="76" cy="243" rx="8" ry="19" fill="#1E4E7A" opacity="0.6"/>
+  <ellipse cx="124" cy="243" rx="8" ry="19" fill="#1E4E7A" opacity="0.6"/>
+  <!-- Calf muscles -->
+  <ellipse cx="73" cy="310" rx="7" ry="14" fill="#1E4E7A" opacity="0.5"/>
+  <ellipse cx="127" cy="310" rx="7" ry="14" fill="#1E4E7A" opacity="0.5"/>
+  <!-- Feet -->
+  <ellipse cx="68" cy="369" rx="19" ry="11" fill="#1A202C"/>
+  <ellipse cx="132" cy="369" rx="19" ry="11" fill="#1A202C"/>
+  <!-- Facial features -->
+  <circle cx="90" cy="42" r="2" fill="#2D3748"/>
+  <circle cx="110" cy="42" r="2" fill="#2D3748"/>
+  <path d="M 93 54 Q 100 56 107 54" fill="none" stroke="#8B4513" stroke-width="1" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,28 @@
+<svg width="200" height="400" viewBox="0 0 200 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Head -->
+  <ellipse cx="100" cy="45" rx="22" ry="28" fill="#F4C2A0" stroke="#8B4513" stroke-width="1.5"/>
+  <!-- Neck -->
+  <rect x="92" y="70" width="16" height="12" fill="#F4C2A0" stroke="#8B4513" stroke-width="1"/>
+  <!-- Torso -->
+  <path d="M 70 82 Q 68 120 70 160 L 80 200 L 120 200 L 130 160 Q 132 120 130 82 Z" fill="#6B9BD1" stroke="#4A5568" stroke-width="1.5"/>
+  <!-- Belly (slight) -->
+  <ellipse cx="100" cy="150" rx="32" ry="35" fill="#5A8BC0" opacity="0.3"/>
+  <!-- Arms (relaxed) -->
+  <path d="M 70 90 Q 45 110 42 145 Q 40 160 45 165" fill="none" stroke="#F4C2A0" stroke-width="11" stroke-linecap="round"/>
+  <path d="M 130 90 Q 155 110 158 145 Q 160 160 155 165" fill="none" stroke="#F4C2A0" stroke-width="11" stroke-linecap="round"/>
+  <!-- Hands -->
+  <ellipse cx="45" cy="168" rx="6" ry="8" fill="#E8B090"/>
+  <ellipse cx="155" cy="168" rx="6" ry="8" fill="#E8B090"/>
+  <!-- Pelvis/Hips -->
+  <ellipse cx="100" cy="205" rx="38" ry="18" fill="#4A5568" stroke="#2D3748" stroke-width="1"/>
+  <!-- Legs (straight, minimal tone) -->
+  <path d="M 80 205 L 75 280 L 72 340 L 70 360" fill="none" stroke="#2C5282" stroke-width="16" stroke-linecap="round"/>
+  <path d="M 120 205 L 125 280 L 128 340 L 130 360" fill="none" stroke="#2C5282" stroke-width="16" stroke-linecap="round"/>
+  <!-- Feet -->
+  <ellipse cx="68" cy="368" rx="18" ry="10" fill="#1A202C"/>
+  <ellipse cx="132" cy="368" rx="18" ry="10" fill="#1A202C"/>
+  <!-- Facial features -->
+  <circle cx="92" cy="42" r="2" fill="#2D3748"/>
+  <circle cx="108" cy="42" r="2" fill="#2D3748"/>
+  <path d="M 95 52 Q 100 54 105 52" fill="none" stroke="#8B4513" stroke-width="1" stroke-linecap="round"/>
+</svg>
