@@ -718,4 +718,819 @@
                         <div class="portion-selector">
                             <button class="portion-btn" data-food="tea" data-action="minus">−</button>
                             <span class="portion-value" id="teaValue">0</span>
-                            <button class="portion-btn" data-food="tea
+                            <button class="portion-btn" data-food="tea" data-action="plus">+</button>
+                        </div>
+                    </div>
+                    <div class="portion-control">
+                        <h3>Oranges</h3>
+                        <div class="portion-info">120 g per portion</div>
+                        <div class="portion-selector">
+                            <button class="portion-btn" data-food="oranges" data-action="minus">−</button>
+                            <span class="portion-value" id="orangesValue">0</span>
+                            <button class="portion-btn" data-food="oranges" data-action="plus">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="nutrition-info">
+                <h2>Daily Nutrition</h2>
+
+                <div class="nutrition-section">
+                    <div class="section-title">Macronutrients</div>
+                    <div class="nutrition-item">
+                        <div>
+                            <div class="nutrition-label">Carbohydrates</div>
+                            <div class="nutrition-subtext">45-65% of calories</div>
+                        </div>
+                        <div class="nutrition-value">
+                            <span id="carbValue">0</span><span class="nutrition-unit">g</span>
+                        </div>
+                        <div class="nutrition-value actual" id="carbActualContainer">
+                            <span id="carbActual">0</span><span class="nutrition-unit">g</span>
+                        </div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div>
+                            <div class="nutrition-label">Protein</div>
+                            <div class="nutrition-subtext">10-35% of calories</div>
+                        </div>
+                        <div class="nutrition-value">
+                            <span id="proteinValue">0</span><span class="nutrition-unit">g</span>
+                        </div>
+                        <div class="nutrition-value actual" id="proteinActualContainer">
+                            <span id="proteinActual">0</span><span class="nutrition-unit">g</span>
+                        </div>
+                    </div>
+                    <div class="nutrition-item sub-item">
+                        <div>
+                            <div class="nutrition-label sub-label">Lysine</div>
+                            <div class="nutrition-subtext">Essential amino acid</div>
+                        </div>
+                        <div class="nutrition-value sub-value">
+                            <span id="lysineValue">0</span><span class="nutrition-unit">g</span>
+                        </div>
+                        <div class="nutrition-value actual sub-value" id="lysineActualContainer">
+                            <span id="lysineActual">0</span><span class="nutrition-unit">g</span>
+                        </div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div>
+                            <div class="nutrition-label">Fat</div>
+                            <div class="nutrition-subtext">20-35% of calories</div>
+                        </div>
+                        <div class="nutrition-value">
+                            <span id="fatValue">0</span><span class="nutrition-unit">g</span>
+                        </div>
+                        <div class="nutrition-value actual" id="fatActualContainer">
+                            <span id="fatActual">0</span><span class="nutrition-unit">g</span>
+                        </div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div>
+                            <div class="nutrition-label">Total Calories</div>
+                            <div class="nutrition-subtext">Daily energy intake</div>
+                        </div>
+                        <div class="nutrition-value">
+                            <span id="calorieValue">0</span><span class="nutrition-unit">kcal</span>
+                        </div>
+                        <div class="nutrition-value actual" id="calorieActualContainer">
+                            <span id="calorieActual">0</span><span class="nutrition-unit">kcal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nutrition-section">
+                    <div class="section-title">Micronutrients</div>
+                    <div class="nutrition-item">
+                        <div>
+                            <div class="nutrition-label">Iron (Fe)</div>
+                            <div class="nutrition-subtext">Essential mineral</div>
+                        </div>
+                        <div class="nutrition-value">
+                            <span id="ironValue">0</span><span class="nutrition-unit">mg</span>
+                        </div>
+                        <div class="nutrition-value actual" id="ironActualContainer">
+                            <span id="ironActual">0</span><span class="nutrition-unit">mg</span>
+                        </div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div>
+                            <div class="nutrition-label">Vitamin C</div>
+                            <div class="nutrition-subtext">Ascorbic acid</div>
+                        </div>
+                        <div class="nutrition-value">
+                            <span id="vitaminCValue">0</span><span class="nutrition-unit">mg</span>
+                        </div>
+                        <div class="nutrition-value actual" id="vitaminCActualContainer">
+                            <span id="vitaminCActual">0</span><span class="nutrition-unit">mg</span>
+                        </div>
+                    </div>
+                    <div class="nutrition-item">
+                        <div>
+                            <div class="nutrition-label">Vitamin D</div>
+                            <div class="nutrition-subtext">Cholecalciferol</div>
+                        </div>
+                        <div class="nutrition-value">
+                            <span id="vitaminDValue">0</span><span class="nutrition-unit">μg</span>
+                        </div>
+                        <div class="nutrition-value actual" id="vitaminDActualContainer">
+                            <span id="vitaminDActual">0</span><span class="nutrition-unit">μg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cost-display">
+                    <h3>Total Cost</h3>
+                    <div>
+                        <span class="cost-value" id="totalCost">0.00</span><span class="cost-unit">EUR</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grocery-link-container">
+            <button class="grocery-link" id="generateGroceryList">Generate monthly groceries list</button>
+        </div>
+    </div>
+
+    <!-- Modal for grocery list -->
+    <div id="groceryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Monthly Groceries List (30 days)</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <ul class="grocery-list" id="groceryListContent">
+                <!-- List will be populated by JavaScript -->
+            </ul>
+            <div class="grocery-summary">
+                <h3>Monthly Total Cost</h3>
+                <div>
+                    <span class="grocery-summary-value" id="monthlyCost">0.00</span><span class="cost-unit">EUR</span>
+                </div>
+            </div>
+            <div class="recipe-suggestions" id="recipeSuggestions" style="display: none;">
+                <h3>Recipe Ideas Based on Your Selections</h3>
+                <ul class="recipe-list" id="recipeList">
+                    <!-- Recipe suggestions will be populated by JavaScript -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentWeight = '90';
+        let currentActivity = 'active';
+        
+        // Food portions object to make management easier
+        const foodPortions = {
+            wheatFlour: 0,
+            soyMince: 0,
+            rapeseedOil: 0,
+            pasta: 0,
+            driedPeas: 0,
+            margarine: 0,
+            sugar: 0,
+            lightMilk: 0,
+            eggs: 0,
+            oatFlakes: 0,
+            yogurt: 0,
+            apples: 0,
+            carrots: 0,
+            lentils: 0,
+            tea: 0,
+            oranges: 0
+        };
+
+        const MAX_PORTIONS = 20;
+
+        // Recipe database with required ingredients
+        const recipes = [
+            { name: "Cooked peas with pasta seasoned with salt and pepper", ingredients: ["driedPeas", "pasta"] },
+            { name: "Oat flakes porridge with light milk and sugar", ingredients: ["oatFlakes", "lightMilk", "sugar"] },
+            { name: "Scrambled eggs with margarine on wheat flour pancakes", ingredients: ["eggs", "margarine", "wheatFlour"] },
+            { name: "Pasta with soy mince and rapeseed oil", ingredients: ["pasta", "soyMince", "rapeseedOil"] },
+            { name: "Carrot soup with lentils and onions", ingredients: ["carrots", "lentils"] },
+            { name: "Wheat flour flatbread with margarine", ingredients: ["wheatFlour", "margarine"] },
+            { name: "Yogurt with oat flakes and apples", ingredients: ["yogurt", "oatFlakes", "apples"] },
+            { name: "Dried peas soup with carrots and garlic", ingredients: ["driedPeas", "carrots"] },
+            { name: "Egg omelette with carrots and salt", ingredients: ["eggs", "carrots"] },
+            { name: "Pasta with lentils and rapeseed oil", ingredients: ["pasta", "lentils", "rapeseedOil"] },
+            { name: "Wheat flour pancakes with eggs and milk", ingredients: ["wheatFlour", "eggs", "lightMilk"] },
+            { name: "Soy mince stew with carrots and onions", ingredients: ["soyMince", "carrots"] },
+            { name: "Oat flakes cookies with margarine and sugar", ingredients: ["oatFlakes", "margarine", "sugar"] },
+            { name: "Boiled eggs with salt and pepper", ingredients: ["eggs"] },
+            { name: "Carrot salad with rapeseed oil and lemon juice", ingredients: ["carrots", "rapeseedOil"] },
+            { name: "Lentil curry with carrots and spices", ingredients: ["lentils", "carrots"] },
+            { name: "Yogurt smoothie with apples and oranges", ingredients: ["yogurt", "apples", "oranges"] },
+            { name: "Tea with sugar and lemon", ingredients: ["tea", "sugar"] },
+            { name: "Pasta salad with peas and carrots", ingredients: ["pasta", "driedPeas", "carrots"] },
+            { name: "Wheat flour bread with margarine and salt", ingredients: ["wheatFlour", "margarine"] }
+        ];
+
+        // Supported image formats - will try in order
+        const imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
+
+        // Activity multipliers for calculating TDEE (Total Daily Energy Expenditure)
+        const activityMultipliers = {
+            'sedentary': 1.2,
+            'moderate': 1.55,
+            'active': 1.725
+        };
+
+        // Nutritional values per 100g (including micronutrients in mg, vitamin D in μg)
+        const nutritionPer100g = {
+            wheatFlour: {
+                carbs: 76.3,
+                protein: 10.3,
+                fat: 1.0,
+                calories: 364,
+                lysinePercent: 3.0,
+                iron: 1.2,
+                vitaminC: 0,
+                vitaminD: 0
+            },
+            soyMince: {
+                carbs: 30.0,
+                protein: 50.0,
+                fat: 1.0,
+                calories: 330,
+                lysinePercent: 6.6,
+                iron: 8.0,
+                vitaminC: 0,
+                vitaminD: 0
+            },
+            rapeseedOil: {
+                carbs: 0,
+                protein: 0,
+                fat: 100.0,
+                calories: 884,
+                lysinePercent: 0,
+                iron: 0,
+                vitaminC: 0,
+                vitaminD: 0
+            },
+            pasta: {
+                carbs: 75.0,
+                protein: 13.0,
+                fat: 1.5,
+                calories: 371,
+                lysinePercent: 3.0,
+                iron: 1.3,
+                vitaminC: 0,
+                vitaminD: 0
+            },
+            driedPeas: {
+                carbs: 60.0,
+                protein: 21.0,
+                fat: 2.0,
+                calories: 341,
+                lysinePercent: 8.1,
+                iron: 4.4,
+                vitaminC: 1.8,
+                vitaminD: 0
+            },
+            margarine: {
+                carbs: 0.7,
+                protein: 0.2,
+                fat: 80.0,
+                calories: 720,
+                lysinePercent: 0,
+                iron: 0,
+                vitaminC: 0,
+                vitaminD: 7.5
+            },
+            sugar: {
+                carbs: 99.8,
+                protein: 0,
+                fat: 0,
+                calories: 387,
+                lysinePercent: 0,
+                iron: 0,
+                vitaminC: 0,
+                vitaminD: 0
+            },
+            lightMilk: {
+                carbs: 4.8,
+                protein: 3.5,
+                fat: 1.5,
+                calories: 46,
+                lysinePercent: 8.4,
+                iron: 0.03,
+                vitaminC: 1.0,
+                vitaminD: 1.0
+            },
+            eggs: {
+                carbs: 1.1,
+                protein: 13.0,
+                fat: 11.0,
+                calories: 155,
+                lysinePercent: 7.2,
+                iron: 1.8,
+                vitaminC: 0,
+                vitaminD: 2.0
+            },
+            oatFlakes: {
+                carbs: 66.3,
+                protein: 13.2,
+                fat: 7.0,
+                calories: 379,
+                lysinePercent: 4.5,
+                iron: 4.7,
+                vitaminC: 0,
+                vitaminD: 0
+            },
+            yogurt: {
+                carbs: 4.7,
+                protein: 3.5,
+                fat: 3.3,
+                calories: 61,
+                lysinePercent: 8.4,
+                iron: 0.05,
+                vitaminC: 0.5,
+                vitaminD: 0.04
+            },
+            apples: {
+                carbs: 14.0,
+                protein: 0.3,
+                fat: 0.2,
+                calories: 52,
+                lysinePercent: 5.0,
+                iron: 0.12,
+                vitaminC: 4.6,
+                vitaminD: 0
+            },
+            carrots: {
+                carbs: 9.6,
+                protein: 0.9,
+                fat: 0.2,
+                calories: 41,
+                lysinePercent: 5.0,
+                iron: 0.3,
+                vitaminC: 5.9,
+                vitaminD: 0
+            },
+            lentils: {
+                carbs: 60.0,
+                protein: 25.0,
+                fat: 1.1,
+                calories: 352,
+                lysinePercent: 6.8,
+                iron: 7.5,
+                vitaminC: 4.0,
+                vitaminD: 0
+            },
+            tea: {
+                carbs: 0,
+                protein: 0,
+                fat: 0,
+                calories: 1,
+                lysinePercent: 0,
+                iron: 0.02,
+                vitaminC: 0,
+                vitaminD: 0
+            },
+            oranges: {
+                carbs: 11.8,
+                protein: 0.9,
+                fat: 0.1,
+                calories: 47,
+                lysinePercent: 5.0,
+                iron: 0.1,
+                vitaminC: 53.2,
+                vitaminD: 0
+            }
+        };
+
+        // Portion sizes in grams
+        const portionSizes = {
+            wheatFlour: 50,
+            soyMince: 20,
+            rapeseedOil: 10,
+            pasta: 70,
+            driedPeas: 20,
+            margarine: 10,
+            sugar: 10,
+            lightMilk: 200,
+            eggs: 60,
+            oatFlakes: 40,
+            yogurt: 200,
+            apples: 120,
+            carrots: 70,
+            lentils: 20,
+            tea: 2,
+            oranges: 120
+        };
+
+        // Prices calculated from your data
+        const pricesPerKg = {
+            wheatFlour: 0.68,
+            soyMince: 6.10,
+            rapeseedOil: 2.75,
+            pasta: 0.86,
+            driedPeas: 1.98,
+            margarine: 3.0,
+            sugar: 1.29,
+            lightMilk: 0.95,
+            eggs: 3.3,
+            oatFlakes: 1.3,
+            yogurt: 1.49,
+            apples: 1.29,
+            carrots: 0.845,
+            lentils: 3.975,
+            tea: 895,
+            oranges: 2.29
+        };
+
+        // Package information
+        const packageInfo = {
+            wheatFlour: { size: 2.0, unit: 'kg', brand: 'K-Menu', name: 'Wheat Flour' },
+            soyMince: { size: 0.5, unit: 'kg', brand: 'Vegesun', name: 'Dried Soy Mince' },
+            rapeseedOil: { size: 1.0, unit: 'kg', brand: 'K-Menu', name: 'Rapeseed Oil' },
+            pasta: { size: 0.4, unit: 'kg', brand: 'Myllyn Paras', name: 'Pasta' },
+            driedPeas: { size: 0.5, unit: 'kg', brand: 'Ylistalon', name: 'Dried Peas' },
+            margarine: { size: 0.4, unit: 'kg', brand: 'Rainbow', name: 'Margarine' },
+            sugar: { size: 1.0, unit: 'kg', brand: 'Aito', name: 'Sugar' },
+            lightMilk: { size: 1.0, unit: 'kg', brand: 'Kotimaista', name: 'Light Milk' },
+            eggs: { size: 0.87, unit: 'kg', brand: 'Xtra', name: 'Eggs' },
+            oatFlakes: { size: 0.5, unit: 'kg', brand: 'Xtra', name: 'Oat Flakes' },
+            yogurt: { size: 1.0, unit: 'kg', brand: 'Kotimaista', name: 'Yogurt (Plain)' },
+            apples: { size: 0.12, unit: 'pcs', brand: 'Pirkka', name: 'Apples' },
+            carrots: { size: 2.0, unit: 'kg', brand: 'K-Menu', name: 'Carrots' },
+            lentils: { size: 0.4, unit: 'kg', brand: 'Coop', name: 'Dried Lentils' },
+            tea: { size: 0.002, unit: 'kg', brand: 'Pirkka', name: 'Black Tea (teabags)', packageDisplay: '100 teabags' },
+            oranges: { size: 0.12, unit: 'pcs', brand: 'Pirkka', name: 'Oranges' }
+        };
+
+        function getColorClass(actual, optimal) {
+            if (actual >= optimal) {
+                return 'green';
+            } else if (actual >= optimal * 0.9) {
+                return 'orange';
+            } else {
+                return 'red';
+            }
+        }
+
+        function calculateFoodNutrition() {
+            let totalCarbs = 0, totalProtein = 0, totalFat = 0, totalCalories = 0, totalLysine = 0;
+            let totalIron = 0, totalVitaminC = 0, totalVitaminD = 0;
+
+            const addFood = (portions, gramsPerPortion, foodType) => {
+                const grams = portions * gramsPerPortion;
+                const protein = (nutritionPer100g[foodType].protein * grams) / 100;
+                totalCarbs += (nutritionPer100g[foodType].carbs * grams) / 100;
+                totalProtein += protein;
+                totalFat += (nutritionPer100g[foodType].fat * grams) / 100;
+                totalCalories += (nutritionPer100g[foodType].calories * grams) / 100;
+                totalLysine += (protein * nutritionPer100g[foodType].lysinePercent) / 100;
+                totalIron += (nutritionPer100g[foodType].iron * grams) / 100;
+                totalVitaminC += (nutritionPer100g[foodType].vitaminC * grams) / 100;
+                totalVitaminD += (nutritionPer100g[foodType].vitaminD * grams) / 100;
+            };
+
+            Object.keys(foodPortions).forEach(food => {
+                addFood(foodPortions[food], portionSizes[food], food);
+            });
+
+            return {
+                carbs: Math.round(totalCarbs),
+                protein: Math.round(totalProtein),
+                fat: Math.round(totalFat),
+                calories: Math.round(totalCalories),
+                lysine: Math.round(totalLysine * 10) / 10,
+                iron: Math.round(totalIron * 10) / 10,
+                vitaminC: Math.round(totalVitaminC * 10) / 10,
+                vitaminD: Math.round(totalVitaminD * 10) / 10
+            };
+        }
+
+        function calculateTotalCost() {
+            let totalCost = 0;
+
+            Object.keys(foodPortions).forEach(food => {
+                const grams = foodPortions[food] * portionSizes[food];
+                totalCost += (grams / 1000) * pricesPerKg[food];
+            });
+
+            return totalCost;
+        }
+
+        function calculateNutrition(weight, activity) {
+            const bmr = 10 * weight + 6.25 * 170 - 5 * 30;
+            const tdee = Math.round(bmr * activityMultipliers[activity]);
+            
+            const carbCalories = tdee * 0.50;
+            const carbs = Math.round(carbCalories / 4);
+            
+            let proteinPerKg;
+            if (activity === 'sedentary') {
+                proteinPerKg = 0.8;
+            } else if (activity === 'moderate') {
+                proteinPerKg = 1.4;
+            } else {
+                proteinPerKg = 1.8;
+            }
+            const protein = Math.round(weight * proteinPerKg);
+            
+            const lysine = Math.round((weight * 0.045) * 10) / 10;
+            
+            const proteinCalories = protein * 4;
+            const fatCalories = tdee - carbCalories - proteinCalories;
+            const fat = Math.round(fatCalories / 9);
+            
+            const iron = 13;
+            const vitaminC = 82.5;
+            const vitaminD = 15;
+            
+            return {
+                calories: tdee,
+                carbs: carbs,
+                protein: protein,
+                lysine: lysine,
+                fat: fat,
+                iron: iron,
+                vitaminC: vitaminC,
+                vitaminD: vitaminD
+            };
+        }
+
+        function updateNutrition() {
+            const weight = parseInt(currentWeight);
+            const optimal = calculateNutrition(weight, currentActivity);
+            const actual = calculateFoodNutrition();
+            const totalCost = calculateTotalCost();
+
+            document.getElementById('calorieValue').textContent = optimal.calories;
+            document.getElementById('carbValue').textContent = optimal.carbs;
+            document.getElementById('proteinValue').textContent = optimal.protein;
+            document.getElementById('lysineValue').textContent = optimal.lysine;
+            document.getElementById('fatValue').textContent = optimal.fat;
+            document.getElementById('ironValue').textContent = optimal.iron;
+            document.getElementById('vitaminCValue').textContent = optimal.vitaminC;
+            document.getElementById('vitaminDValue').textContent = optimal.vitaminD;
+
+            document.getElementById('calorieActual').textContent = actual.calories;
+            document.getElementById('carbActual').textContent = actual.carbs;
+            document.getElementById('proteinActual').textContent = actual.protein;
+            document.getElementById('lysineActual').textContent = actual.lysine;
+            document.getElementById('fatActual').textContent = actual.fat;
+            document.getElementById('ironActual').textContent = actual.iron;
+            document.getElementById('vitaminCActual').textContent = actual.vitaminC;
+            document.getElementById('vitaminDActual').textContent = actual.vitaminD;
+
+            document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+
+            const calorieContainer = document.getElementById('calorieActualContainer');
+            const carbContainer = document.getElementById('carbActualContainer');
+            const proteinContainer = document.getElementById('proteinActualContainer');
+            const lysineContainer = document.getElementById('lysineActualContainer');
+            const fatContainer = document.getElementById('fatActualContainer');
+            const ironContainer = document.getElementById('ironActualContainer');
+            const vitaminCContainer = document.getElementById('vitaminCActualContainer');
+            const vitaminDContainer = document.getElementById('vitaminDActualContainer');
+
+            [calorieContainer, carbContainer, proteinContainer, lysineContainer, fatContainer,
+             ironContainer, vitaminCContainer, vitaminDContainer].forEach(container => {
+                container.classList.remove('green', 'orange', 'red');
+            });
+
+            calorieContainer.classList.add(getColorClass(actual.calories, optimal.calories));
+            carbContainer.classList.add(getColorClass(actual.carbs, optimal.carbs));
+            proteinContainer.classList.add(getColorClass(actual.protein, optimal.protein));
+            lysineContainer.classList.add(getColorClass(actual.lysine, optimal.lysine));
+            fatContainer.classList.add(getColorClass(actual.fat, optimal.fat));
+            ironContainer.classList.add(getColorClass(actual.iron, optimal.iron));
+            vitaminCContainer.classList.add(getColorClass(actual.vitaminC, optimal.vitaminC));
+            vitaminDContainer.classList.add(getColorClass(actual.vitaminD, optimal.vitaminD));
+        }
+
+        function updatePortionDisplay(food) {
+            document.getElementById(food + 'Value').textContent = foodPortions[food];
+        }
+
+        function adjustPortion(food, delta) {
+            const newValue = foodPortions[food] + delta;
+            if (newValue >= 0 && newValue <= MAX_PORTIONS) {
+                foodPortions[food] = newValue;
+                updatePortionDisplay(food);
+                updateNutrition();
+            }
+        }
+
+        function tryLoadImage(basePath, formatIndex = 0) {
+            if (formatIndex >= imageFormats.length) {
+                const figureContainer = document.getElementById('figureContainer');
+                figureContainer.innerHTML = `<div style="color: #888; text-align: center; padding: 20px;">
+                    <p>Image not found</p>
+                    <p style="font-size: 12px; margin-top: 10px;">${basePath}.jpg/png/svg</p>
+                    <p style="font-size: 11px; margin-top: 5px; color: #aaa;">Place your image files in the images/ folder</p>
+                </div>`;
+                return;
+            }
+
+            const format = imageFormats[formatIndex];
+            const img = new Image();
+
+            img.onload = function() {
+                const figureContainer = document.getElementById('figureContainer');
+                figureContainer.innerHTML = `<img src="${basePath}.${format}" alt="Body type: ${currentWeight}kg, ${currentActivity}">`;
+            };
+
+            img.onerror = function() {
+                tryLoadImage(basePath, formatIndex + 1);
+            };
+
+            img.src = `${basePath}.${format}`;
+        }
+
+        function updateFigure() {
+            const basePath = `images/${currentWeight}-${currentActivity}`;
+            tryLoadImage(basePath);
+        }
+
+        function update() {
+            updateFigure();
+            updateNutrition();
+        }
+
+        function getSuggestedRecipes() {
+            const selectedFoods = Object.keys(foodPortions).filter(food => foodPortions[food] > 0);
+            
+            return recipes.filter(recipe => {
+                return recipe.ingredients.every(ingredient => selectedFoods.includes(ingredient));
+            });
+        }
+
+        function generateMonthlyGroceryList() {
+            const groceryList = [];
+            let totalMonthlyCost = 0;
+
+            const monthlyRequirements = {};
+            Object.keys(foodPortions).forEach(food => {
+                if (food === 'apples' || food === 'oranges') {
+                    monthlyRequirements[food] = foodPortions[food] * 30;
+                } else if (food === 'tea') {
+                    monthlyRequirements[food] = foodPortions[food] * 30;
+                } else {
+                    monthlyRequirements[food] = foodPortions[food] * portionSizes[food] * 30 / 1000;
+                }
+            });
+
+            for (const [key, monthlyKg] of Object.entries(monthlyRequirements)) {
+                if (monthlyKg > 0) {
+                    const info = packageInfo[key];
+                    let packagesNeeded;
+
+                    if (key === 'apples' || key === 'oranges') {
+                        packagesNeeded = Math.ceil(monthlyKg);
+                    } else if (key === 'tea') {
+                        packagesNeeded = Math.ceil(monthlyKg / 100);
+                    } else {
+                        packagesNeeded = Math.ceil(monthlyKg / info.size);
+                    }
+
+                    const packageCost = pricesPerKg[key] * info.size;
+                    const itemTotalCost = packagesNeeded * packageCost;
+                    totalMonthlyCost += itemTotalCost;
+
+                    let displayInfo;
+                    if (key === 'tea') {
+                        displayInfo = {
+                            name: info.name,
+                            brand: info.brand,
+                            packages: packagesNeeded,
+                            packageSize: info.packageDisplay,
+                            unit: '',
+                            totalCost: itemTotalCost
+                        };
+                    } else {
+                        displayInfo = {
+                            name: info.name,
+                            brand: info.brand,
+                            packages: packagesNeeded,
+                            packageSize: info.size,
+                            unit: info.unit,
+                            totalCost: itemTotalCost
+                        };
+                    }
+
+                    groceryList.push(displayInfo);
+                }
+            }
+
+            return { groceryList, totalMonthlyCost };
+        }
+
+        function displayGroceryList() {
+            const { groceryList, totalMonthlyCost } = generateMonthlyGroceryList();
+            const listContainer = document.getElementById('groceryListContent');
+
+            if (groceryList.length === 0) {
+                listContainer.innerHTML = '<li class="grocery-item"><div class="grocery-item-info"><div class="grocery-item-name">No items selected</div></div></li>';
+                document.getElementById('monthlyCost').textContent = '0.00';
+                document.getElementById('recipeSuggestions').style.display = 'none';
+                return;
+            }
+
+            listContainer.innerHTML = '';
+
+            groceryList.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'grocery-item';
+
+                let quantityText;
+                if (item.unit === 'pcs') {
+                    quantityText = `${item.packages} ${item.name.toLowerCase()}`;
+                } else if (item.unit === '') {
+                    quantityText = `${item.packages} × ${item.packageSize}`;
+                } else {
+                    quantityText = `${item.packages} × ${item.packageSize} ${item.unit}`;
+                }
+
+                li.innerHTML = `
+                    <div class="grocery-item-info">
+                        <div class="grocery-item-name">${item.name}</div>
+                        <div class="grocery-item-brand">${item.brand} - ${quantityText}</div>
+                    </div>
+                    <div class="grocery-item-quantity">${item.totalCost.toFixed(2)} EUR</div>
+                `;
+
+                listContainer.appendChild(li);
+            });
+
+            document.getElementById('monthlyCost').textContent = totalMonthlyCost.toFixed(2);
+
+            // Display recipe suggestions
+            const suggestedRecipes = getSuggestedRecipes();
+            const recipeContainer = document.getElementById('recipeSuggestions');
+            const recipeList = document.getElementById('recipeList');
+
+            if (suggestedRecipes.length > 0) {
+                recipeList.innerHTML = '';
+                suggestedRecipes.forEach(recipe => {
+                    const li = document.createElement('li');
+                    li.textContent = recipe.name;
+                    recipeList.appendChild(li);
+                });
+                recipeContainer.style.display = 'block';
+            } else {
+                recipeContainer.style.display = 'none';
+            }
+        }
+
+        // Weight buttons
+        document.querySelectorAll('[data-weight]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-weight]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentWeight = this.dataset.weight;
+                update();
+            });
+        });
+
+        // Activity buttons
+        document.querySelectorAll('[data-activity]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('[data-activity]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentActivity = this.dataset.activity;
+                update();
+            });
+        });
+
+        // Portion control buttons
+        document.querySelectorAll('.portion-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const food = this.dataset.food;
+                const action = this.dataset.action;
+                const delta = action === 'plus' ? 1 : -1;
+                adjustPortion(food, delta);
+            });
+        });
+
+        // Grocery list modal handling
+        document.getElementById('generateGroceryList').addEventListener('click', function() {
+            displayGroceryList();
+            document.getElementById('groceryModal').classList.add('show');
+        });
+
+        document.getElementById('closeModal').addEventListener('click', function() {
+            document.getElementById('groceryModal').classList.remove('show');
+        });
+
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('groceryModal');
+            if (event.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        // Initialize
+        update();
+    </script>
+</body>
+</html>
