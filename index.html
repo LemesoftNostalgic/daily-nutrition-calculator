@@ -41,6 +41,39 @@
             margin-bottom: 40px;
         }
 
+        .top-controls {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+            align-items: flex-start;
+        }
+
+        .figure-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            flex: 0 0 auto;
+            min-width: 150px;
+        }
+
+        .figure-container img {
+            max-width: 100px;
+            height: auto;
+            max-height: 200px;
+            object-fit: contain;
+        }
+
+        .selector-controls {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
         .control-group {
             margin-bottom: 25px;
         }
@@ -154,24 +187,6 @@
             gap: 30px;
             align-items: flex-start;
             flex-wrap: wrap;
-        }
-
-        .figure-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 200px;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 20px;
-            flex: 0 0 auto;
-        }
-
-        .figure-container img {
-            max-width: 100px;
-            height: auto;
-            max-height: 200px;
-            object-fit: contain;
         }
 
         .nutrition-info {
@@ -451,11 +466,18 @@
         }
 
         @media (max-width: 768px) {
+            .top-controls {
+                flex-direction: column;
+            }
+
+            .figure-container {
+                width: 100%;
+            }
+
             .content-area {
                 flex-direction: column;
             }
             
-            .figure-container,
             .nutrition-info {
                 width: 100%;
             }
@@ -499,21 +521,29 @@
         <h1>Daily Nutrition Calculator</h1>
         
         <div class="controls">
-            <div class="control-group">
-                <label>Body Weight (kg)</label>
-                <div class="button-group">
-                    <button class="btn" data-weight="60">60 kg</button>
-                    <button class="btn" data-weight="75">75 kg</button>
-                    <button class="btn active" data-weight="90">90 kg</button>
+            <div class="top-controls">
+                <div class="figure-container" id="figureContainer">
+                    <!-- Figure will be inserted here -->
                 </div>
-            </div>
 
-            <div class="control-group">
-                <label>Activity Level</label>
-                <div class="button-group">
-                    <button class="btn" data-activity="sedentary">Sedentary</button>
-                    <button class="btn" data-activity="moderate">Moderate</button>
-                    <button class="btn active" data-activity="active">Active</button>
+                <div class="selector-controls">
+                    <div class="control-group">
+                        <label>Body Weight (kg)</label>
+                        <div class="button-group">
+                            <button class="btn" data-weight="60">60 kg</button>
+                            <button class="btn" data-weight="75">75 kg</button>
+                            <button class="btn active" data-weight="90">90 kg</button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Activity Level</label>
+                        <div class="button-group">
+                            <button class="btn" data-activity="sedentary">Sedentary</button>
+                            <button class="btn" data-activity="moderate">Moderate</button>
+                            <button class="btn active" data-activity="active">Active</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -621,10 +651,6 @@
         </div>
 
         <div class="content-area">
-            <div class="figure-container" id="figureContainer">
-                <!-- Figure will be inserted here -->
-            </div>
-
             <div class="nutrition-info">
                 <h2>Daily Nutrition</h2>
                 
