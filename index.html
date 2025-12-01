@@ -117,69 +117,69 @@
 
         .food-portions {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
             margin-top: 15px;
         }
 
         .portion-control {
             background: #f8f9fa;
-            padding: 15px;
+            padding: 10px;
             border-radius: 8px;
             border: 1px solid #e0e0e0;
         }
 
         .portion-control h3 {
-            font-size: 14px;
+            font-size: 12px;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
+            font-weight: 600;
         }
 
         .portion-control .portion-info {
-            font-size: 12px;
+            font-size: 10px;
             color: #888;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
 
         .portion-selector {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
         }
 
-        .portion-selector input[type="range"] {
-            flex: 1;
-            height: 6px;
-            border-radius: 3px;
-            background: #ddd;
-            outline: none;
-            -webkit-appearance: none;
-        }
-
-        .portion-selector input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #667eea;
+        .portion-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 4px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
         }
 
-        .portion-selector input[type="range"]::-moz-range-thumb {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
+        .portion-btn:hover {
             background: #667eea;
-            cursor: pointer;
-            border: none;
+            color: white;
+        }
+
+        .portion-btn:active {
+            transform: scale(0.95);
         }
 
         .portion-value {
             font-weight: 700;
             color: #667eea;
-            min-width: 60px;
-            text-align: right;
+            min-width: 50px;
+            text-align: center;
+            font-size: 13px;
         }
 
         .content-area {
@@ -554,120 +554,135 @@
                         <h3>Wheat Flour</h3>
                         <div class="portion-info">50 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="wheatFlour" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="wheatFlourValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="wheatFlour" data-action="minus">−</button>
+                            <span class="portion-value" id="wheatFlourValue">0</span>
+                            <button class="portion-btn" data-food="wheatFlour" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Dried Soy Mince</h3>
                         <div class="portion-info">20 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="soyMince" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="soyMinceValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="soyMince" data-action="minus">−</button>
+                            <span class="portion-value" id="soyMinceValue">0</span>
+                            <button class="portion-btn" data-food="soyMince" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Rapeseed Oil</h3>
                         <div class="portion-info">10 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="rapeseedOil" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="rapeseedOilValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="rapeseedOil" data-action="minus">−</button>
+                            <span class="portion-value" id="rapeseedOilValue">0</span>
+                            <button class="portion-btn" data-food="rapeseedOil" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Pasta</h3>
                         <div class="portion-info">70 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="pasta" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="pastaValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="pasta" data-action="minus">−</button>
+                            <span class="portion-value" id="pastaValue">0</span>
+                            <button class="portion-btn" data-food="pasta" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Dried Peas</h3>
                         <div class="portion-info">20 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="driedPeas" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="driedPeasValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="driedPeas" data-action="minus">−</button>
+                            <span class="portion-value" id="driedPeasValue">0</span>
+                            <button class="portion-btn" data-food="driedPeas" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Margarine</h3>
                         <div class="portion-info">10 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="margarine" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="margarineValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="margarine" data-action="minus">−</button>
+                            <span class="portion-value" id="margarineValue">0</span>
+                            <button class="portion-btn" data-food="margarine" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Sugar</h3>
                         <div class="portion-info">10 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="sugar" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="sugarValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="sugar" data-action="minus">−</button>
+                            <span class="portion-value" id="sugarValue">0</span>
+                            <button class="portion-btn" data-food="sugar" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Light Milk</h3>
                         <div class="portion-info">200 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="lightMilk" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="lightMilkValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="lightMilk" data-action="minus">−</button>
+                            <span class="portion-value" id="lightMilkValue">0</span>
+                            <button class="portion-btn" data-food="lightMilk" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Eggs</h3>
                         <div class="portion-info">60 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="eggs" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="eggsValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="eggs" data-action="minus">−</button>
+                            <span class="portion-value" id="eggsValue">0</span>
+                            <button class="portion-btn" data-food="eggs" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Oat Flakes</h3>
                         <div class="portion-info">40 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="oatFlakes" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="oatFlakesValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="oatFlakes" data-action="minus">−</button>
+                            <span class="portion-value" id="oatFlakesValue">0</span>
+                            <button class="portion-btn" data-food="oatFlakes" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Yogurt (Plain)</h3>
                         <div class="portion-info">200 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="yogurt" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="yogurtValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="yogurt" data-action="minus">−</button>
+                            <span class="portion-value" id="yogurtValue">0</span>
+                            <button class="portion-btn" data-food="yogurt" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Apples</h3>
                         <div class="portion-info">120 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="apples" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="applesValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="apples" data-action="minus">−</button>
+                            <span class="portion-value" id="applesValue">0</span>
+                            <button class="portion-btn" data-food="apples" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Carrots</h3>
                         <div class="portion-info">70 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="carrots" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="carrotsValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="carrots" data-action="minus">−</button>
+                            <span class="portion-value" id="carrotsValue">0</span>
+                            <button class="portion-btn" data-food="carrots" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Lentils (Dried)</h3>
                         <div class="portion-info">20 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="lentils" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="lentilsValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="lentils" data-action="minus">−</button>
+                            <span class="portion-value" id="lentilsValue">0</span>
+                            <button class="portion-btn" data-food="lentils" data-action="plus">+</button>
                         </div>
                     </div>
                     <div class="portion-control">
                         <h3>Black Tea</h3>
                         <div class="portion-info">2 g per portion</div>
                         <div class="portion-selector">
-                            <input type="range" id="tea" min="0" max="10" value="0" step="1">
-                            <span class="portion-value"><span id="teaValue">0</span> portions</span>
+                            <button class="portion-btn" data-food="tea" data-action="minus">−</button>
+                            <span class="portion-value" id="teaValue">0</span>
+                            <button class="portion-btn" data-food="tea" data-action="plus">+</button>
                         </div>
                     </div>
                 </div>
@@ -818,21 +833,27 @@
     <script>
         let currentWeight = '90';
         let currentActivity = 'active';
-        let wheatFlourPortions = 0;
-        let soyMincePortions = 0;
-        let rapeseedOilPortions = 0;
-        let pastaPortions = 0;
-        let driedPeasPortions = 0;
-        let margarinePortions = 0;
-        let sugarPortions = 0;
-        let lightMilkPortions = 0;
-        let eggsPortions = 0;
-        let oatFlakesPortions = 0;
-        let yogurtPortions = 0;
-        let applesPortions = 0;
-        let carrotsPortions = 0;
-        let lentilsPortions = 0;
-        let teaPortions = 0;
+        
+        // Food portions object to make management easier
+        const foodPortions = {
+            wheatFlour: 0,
+            soyMince: 0,
+            rapeseedOil: 0,
+            pasta: 0,
+            driedPeas: 0,
+            margarine: 0,
+            sugar: 0,
+            lightMilk: 0,
+            eggs: 0,
+            oatFlakes: 0,
+            yogurt: 0,
+            apples: 0,
+            carrots: 0,
+            lentils: 0,
+            tea: 0
+        };
+
+        const MAX_PORTIONS = 20;
 
         // Supported image formats - will try in order
         const imageFormats = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
@@ -998,6 +1019,25 @@
             }
         };
 
+        // Portion sizes in grams
+        const portionSizes = {
+            wheatFlour: 50,
+            soyMince: 20,
+            rapeseedOil: 10,
+            pasta: 70,
+            driedPeas: 20,
+            margarine: 10,
+            sugar: 10,
+            lightMilk: 200,
+            eggs: 60,
+            oatFlakes: 40,
+            yogurt: 200,
+            apples: 120,
+            carrots: 70,
+            lentils: 20,
+            tea: 2
+        };
+
         // Prices calculated from your data
         const pricesPerKg = {
             wheatFlour: 0.68,
@@ -1012,9 +1052,9 @@
             oatFlakes: 1.3,
             yogurt: 1.49,
             apples: 1.29,
-            carrots: 0.845,      // 1.69 EUR / 2 kg = 0.845 EUR/kg
-            lentils: 3.975,      // 1.59 EUR / 0.4 kg = 3.975 EUR/kg
-            tea: 895             // 1.79 EUR / 0.002 kg = 895 EUR/kg (very expensive per kg, but used in small amounts)
+            carrots: 0.845,
+            lentils: 3.975,
+            tea: 895
         };
 
         // Package information
@@ -1065,21 +1105,9 @@
             };
 
             // Calculate for all foods
-            addFood(wheatFlourPortions, 50, 'wheatFlour');
-            addFood(soyMincePortions, 20, 'soyMince');
-            addFood(rapeseedOilPortions, 10, 'rapeseedOil');
-            addFood(pastaPortions, 70, 'pasta');
-            addFood(driedPeasPortions, 20, 'driedPeas');
-            addFood(margarinePortions, 10, 'margarine');
-            addFood(sugarPortions, 10, 'sugar');
-            addFood(lightMilkPortions, 200, 'lightMilk');
-            addFood(eggsPortions, 60, 'eggs');
-            addFood(oatFlakesPortions, 40, 'oatFlakes');
-            addFood(yogurtPortions, 200, 'yogurt');
-            addFood(applesPortions, 120, 'apples');
-            addFood(carrotsPortions, 70, 'carrots');
-            addFood(lentilsPortions, 20, 'lentils');
-            addFood(teaPortions, 2, 'tea');
+            Object.keys(foodPortions).forEach(food => {
+                addFood(foodPortions[food], portionSizes[food], food);
+            });
 
             return {
                 carbs: Math.round(totalCarbs),
@@ -1096,75 +1124,41 @@
         function calculateTotalCost() {
             let totalCost = 0;
 
-            // Helper function to calculate cost for each food
-            const addCost = (portions, gramsPerPortion, foodType) => {
-                const grams = portions * gramsPerPortion;
-                totalCost += (grams / 1000) * pricesPerKg[foodType];
-            };
-
-            // Calculate cost for all foods
-            addCost(wheatFlourPortions, 50, 'wheatFlour');
-            addCost(soyMincePortions, 20, 'soyMince');
-            addCost(rapeseedOilPortions, 10, 'rapeseedOil');
-            addCost(pastaPortions, 70, 'pasta');
-            addCost(driedPeasPortions, 20, 'driedPeas');
-            addCost(margarinePortions, 10, 'margarine');
-            addCost(sugarPortions, 10, 'sugar');
-            addCost(lightMilkPortions, 200, 'lightMilk');
-            addCost(eggsPortions, 60, 'eggs');
-            addCost(oatFlakesPortions, 40, 'oatFlakes');
-            addCost(yogurtPortions, 200, 'yogurt');
-            addCost(applesPortions, 120, 'apples');
-            addCost(carrotsPortions, 70, 'carrots');
-            addCost(lentilsPortions, 20, 'lentils');
-            addCost(teaPortions, 2, 'tea');
+            Object.keys(foodPortions).forEach(food => {
+                const grams = foodPortions[food] * portionSizes[food];
+                totalCost += (grams / 1000) * pricesPerKg[food];
+            });
 
             return totalCost;
         }
 
         function calculateNutrition(weight, activity) {
-            // Calculate BMR using Mifflin-St Jeor Equation (simplified, assuming average height and age)
-            // For a gender-neutral average: BMR ≈ 10 × weight(kg) + 6.25 × height(cm) - 5 × age + constant
-            // Using average values: height=170cm, age=30, constant=0 (average of +5 for male, -161 for female)
             const bmr = 10 * weight + 6.25 * 170 - 5 * 30;
-
-            // Calculate TDEE (Total Daily Energy Expenditure)
             const tdee = Math.round(bmr * activityMultipliers[activity]);
-
-            // Calculate macronutrients
-            // Carbs: 50% of calories (moderate approach)
+            
             const carbCalories = tdee * 0.50;
-            const carbs = Math.round(carbCalories / 4); // 4 calories per gram of carbs
-
-            // Protein: varies by activity level
+            const carbs = Math.round(carbCalories / 4);
+            
             let proteinPerKg;
             if (activity === 'sedentary') {
-                proteinPerKg = 0.8; // RDA for sedentary
+                proteinPerKg = 0.8;
             } else if (activity === 'moderate') {
-                proteinPerKg = 1.4; // Moderate activity
-            } else { // active
-                proteinPerKg = 1.8; // Active/athletic
+                proteinPerKg = 1.4;
+            } else {
+                proteinPerKg = 1.8;
             }
             const protein = Math.round(weight * proteinPerKg);
-
-            // Lysine: approximately 4.5% of protein requirement (WHO recommendation ~45 mg/kg body weight)
+            
             const lysine = Math.round((weight * 0.045) * 10) / 10;
-
-            // Fat: remaining calories after carbs and protein
+            
             const proteinCalories = protein * 4;
             const fatCalories = tdee - carbCalories - proteinCalories;
-            const fat = Math.round(fatCalories / 9); // 9 calories per gram of fat
-
-            // Micronutrients (RDA recommendations)
-            // Iron: 8 mg for adult males, 18 mg for adult females (average: 13 mg)
+            const fat = Math.round(fatCalories / 9);
+            
             const iron = 13;
-
-            // Vitamin C: 90 mg for adult males, 75 mg for adult females (average: 82.5 mg)
             const vitaminC = 82.5;
-
-            // Vitamin D: 15 μg (600 IU) for adults
             const vitaminD = 15;
-
+            
             return {
                 calories: tdee,
                 carbs: carbs,
@@ -1183,7 +1177,6 @@
             const actual = calculateFoodNutrition();
             const totalCost = calculateTotalCost();
 
-            // Update optimal values (blue)
             document.getElementById('calorieValue').textContent = optimal.calories;
             document.getElementById('carbValue').textContent = optimal.carbs;
             document.getElementById('proteinValue').textContent = optimal.protein;
@@ -1193,7 +1186,6 @@
             document.getElementById('vitaminCValue').textContent = optimal.vitaminC;
             document.getElementById('vitaminDValue').textContent = optimal.vitaminD;
 
-            // Update actual values with color coding
             document.getElementById('calorieActual').textContent = actual.calories;
             document.getElementById('carbActual').textContent = actual.carbs;
             document.getElementById('proteinActual').textContent = actual.protein;
@@ -1203,10 +1195,8 @@
             document.getElementById('vitaminCActual').textContent = actual.vitaminC;
             document.getElementById('vitaminDActual').textContent = actual.vitaminD;
 
-            // Update total cost
             document.getElementById('totalCost').textContent = totalCost.toFixed(2);
 
-            // Apply color classes
             const calorieContainer = document.getElementById('calorieActualContainer');
             const carbContainer = document.getElementById('carbActualContainer');
             const proteinContainer = document.getElementById('proteinActualContainer');
@@ -1216,13 +1206,11 @@
             const vitaminCContainer = document.getElementById('vitaminCActualContainer');
             const vitaminDContainer = document.getElementById('vitaminDActualContainer');
 
-            // Remove all color classes
             [calorieContainer, carbContainer, proteinContainer, lysineContainer, fatContainer,
              ironContainer, vitaminCContainer, vitaminDContainer].forEach(container => {
                 container.classList.remove('green', 'orange', 'red');
             });
 
-            // Add appropriate color classes
             calorieContainer.classList.add(getColorClass(actual.calories, optimal.calories));
             carbContainer.classList.add(getColorClass(actual.carbs, optimal.carbs));
             proteinContainer.classList.add(getColorClass(actual.protein, optimal.protein));
@@ -1233,9 +1221,21 @@
             vitaminDContainer.classList.add(getColorClass(actual.vitaminD, optimal.vitaminD));
         }
 
+        function updatePortionDisplay(food) {
+            document.getElementById(food + 'Value').textContent = foodPortions[food];
+        }
+
+        function adjustPortion(food, delta) {
+            const newValue = foodPortions[food] + delta;
+            if (newValue >= 0 && newValue <= MAX_PORTIONS) {
+                foodPortions[food] = newValue;
+                updatePortionDisplay(food);
+                updateNutrition();
+            }
+        }
+
         function tryLoadImage(basePath, formatIndex = 0) {
             if (formatIndex >= imageFormats.length) {
-                // All formats failed, show error message
                 const figureContainer = document.getElementById('figureContainer');
                 figureContainer.innerHTML = `<div style="color: #888; text-align: center; padding: 20px;">
                     <p>Image not found</p>
@@ -1254,7 +1254,6 @@
             };
 
             img.onerror = function() {
-                // Try next format
                 tryLoadImage(basePath, formatIndex + 1);
             };
 
@@ -1275,40 +1274,27 @@
             const groceryList = [];
             let totalMonthlyCost = 0;
 
-            // Calculate monthly requirements (30 days)
-            const monthlyRequirements = {
-                wheatFlour: wheatFlourPortions * 50 * 30 / 1000, // kg
-                soyMince: soyMincePortions * 20 * 30 / 1000,
-                rapeseedOil: rapeseedOilPortions * 10 * 30 / 1000,
-                pasta: pastaPortions * 70 * 30 / 1000,
-                driedPeas: driedPeasPortions * 20 * 30 / 1000,
-                margarine: margarinePortions * 10 * 30 / 1000,
-                sugar: sugarPortions * 10 * 30 / 1000,
-                lightMilk: lightMilkPortions * 200 * 30 / 1000,
-                eggs: eggsPortions * 60 * 30 / 1000,
-                oatFlakes: oatFlakesPortions * 40 * 30 / 1000,
-                yogurt: yogurtPortions * 200 * 30 / 1000,
-                apples: applesPortions * 30, // number of apples
-                carrots: carrotsPortions * 70 * 30 / 1000,
-                lentils: lentilsPortions * 20 * 30 / 1000,
-                tea: teaPortions * 30 // number of teabags
-            };
+            const monthlyRequirements = {};
+            Object.keys(foodPortions).forEach(food => {
+                if (food === 'apples') {
+                    monthlyRequirements[food] = foodPortions[food] * 30;
+                } else if (food === 'tea') {
+                    monthlyRequirements[food] = foodPortions[food] * 30;
+                } else {
+                    monthlyRequirements[food] = foodPortions[food] * portionSizes[food] * 30 / 1000;
+                }
+            });
 
-            // Calculate packages needed for each item
             for (const [key, monthlyKg] of Object.entries(monthlyRequirements)) {
                 if (monthlyKg > 0) {
                     const info = packageInfo[key];
                     let packagesNeeded;
 
                     if (key === 'apples') {
-                        // Apples are sold individually
                         packagesNeeded = Math.ceil(monthlyKg);
                     } else if (key === 'tea') {
-                        // Tea: need to calculate packages of 100 teabags
-                        // Each teabag portion is counted, package has 100 teabags
                         packagesNeeded = Math.ceil(monthlyKg / 100);
                     } else {
-                        // Calculate packages needed, rounding up
                         packagesNeeded = Math.ceil(monthlyKg / info.size);
                     }
 
@@ -1364,7 +1350,6 @@
                 if (item.unit === 'pcs') {
                     quantityText = `${item.packages} ${item.name.toLowerCase()}`;
                 } else if (item.unit === '') {
-                    // For tea packages
                     quantityText = `${item.packages} × ${item.packageSize}`;
                 } else {
                     quantityText = `${item.packages} × ${item.packageSize} ${item.unit}`;
@@ -1404,95 +1389,14 @@
             });
         });
 
-        // Food portion sliders
-        document.getElementById('wheatFlour').addEventListener('input', function() {
-            wheatFlourPortions = parseInt(this.value);
-            document.getElementById('wheatFlourValue').textContent = wheatFlourPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('soyMince').addEventListener('input', function() {
-            soyMincePortions = parseInt(this.value);
-            document.getElementById('soyMinceValue').textContent = soyMincePortions;
-            updateNutrition();
-        });
-
-        document.getElementById('rapeseedOil').addEventListener('input', function() {
-            rapeseedOilPortions = parseInt(this.value);
-            document.getElementById('rapeseedOilValue').textContent = rapeseedOilPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('pasta').addEventListener('input', function() {
-            pastaPortions = parseInt(this.value);
-            document.getElementById('pastaValue').textContent = pastaPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('driedPeas').addEventListener('input', function() {
-            driedPeasPortions = parseInt(this.value);
-            document.getElementById('driedPeasValue').textContent = driedPeasPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('margarine').addEventListener('input', function() {
-            margarinePortions = parseInt(this.value);
-            document.getElementById('margarineValue').textContent = margarinePortions;
-            updateNutrition();
-        });
-
-        document.getElementById('sugar').addEventListener('input', function() {
-            sugarPortions = parseInt(this.value);
-            document.getElementById('sugarValue').textContent = sugarPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('lightMilk').addEventListener('input', function() {
-            lightMilkPortions = parseInt(this.value);
-            document.getElementById('lightMilkValue').textContent = lightMilkPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('eggs').addEventListener('input', function() {
-            eggsPortions = parseInt(this.value);
-            document.getElementById('eggsValue').textContent = eggsPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('oatFlakes').addEventListener('input', function() {
-            oatFlakesPortions = parseInt(this.value);
-            document.getElementById('oatFlakesValue').textContent = oatFlakesPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('yogurt').addEventListener('input', function() {
-            yogurtPortions = parseInt(this.value);
-            document.getElementById('yogurtValue').textContent = yogurtPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('apples').addEventListener('input', function() {
-            applesPortions = parseInt(this.value);
-            document.getElementById('applesValue').textContent = applesPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('carrots').addEventListener('input', function() {
-            carrotsPortions = parseInt(this.value);
-            document.getElementById('carrotsValue').textContent = carrotsPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('lentils').addEventListener('input', function() {
-            lentilsPortions = parseInt(this.value);
-            document.getElementById('lentilsValue').textContent = lentilsPortions;
-            updateNutrition();
-        });
-
-        document.getElementById('tea').addEventListener('input', function() {
-            teaPortions = parseInt(this.value);
-            document.getElementById('teaValue').textContent = teaPortions;
-            updateNutrition();
+        // Portion control buttons
+        document.querySelectorAll('.portion-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const food = this.dataset.food;
+                const action = this.dataset.action;
+                const delta = action === 'plus' ? 1 : -1;
+                adjustPortion(food, delta);
+            });
         });
 
         // Grocery list modal handling
@@ -1505,7 +1409,6 @@
             document.getElementById('groceryModal').classList.remove('show');
         });
 
-        // Close modal when clicking outside of it
         window.addEventListener('click', function(event) {
             const modal = document.getElementById('groceryModal');
             if (event.target === modal) {
@@ -1513,7 +1416,7 @@
             }
         });
 
-        // Initialize with default figure and nutrition
+        // Initialize
         update();
     </script>
 </body>
