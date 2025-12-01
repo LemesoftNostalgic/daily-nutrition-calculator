@@ -685,6 +685,15 @@
                             <button class="portion-btn" data-food="tea" data-action="plus">+</button>
                         </div>
                     </div>
+                    <div class="portion-control">
+                        <h3>Oranges</h3>
+                        <div class="portion-info">120 g per portion</div>
+                        <div class="portion-selector">
+                            <button class="portion-btn" data-food="oranges" data-action="minus">−</button>
+                            <span class="portion-value" id="orangesValue">0</span>
+                            <button class="portion-btn" data-food="oranges" data-action="plus">+</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -850,7 +859,8 @@
             apples: 0,
             carrots: 0,
             lentils: 0,
-            tea: 0
+            tea: 0,
+            oranges: 0
         };
 
         const MAX_PORTIONS = 20;
@@ -1016,6 +1026,16 @@
                 iron: 0.02,
                 vitaminC: 0,
                 vitaminD: 0
+            },
+            oranges: {
+                carbs: 11.8,
+                protein: 0.9,
+                fat: 0.1,
+                calories: 47,
+                lysinePercent: 5.0,
+                iron: 0.1,
+                vitaminC: 53.2,
+                vitaminD: 0
             }
         };
 
@@ -1035,7 +1055,8 @@
             apples: 120,
             carrots: 70,
             lentils: 20,
-            tea: 2
+            tea: 2,
+            oranges: 120
         };
 
         // Prices calculated from your data
@@ -1054,7 +1075,8 @@
             apples: 1.29,
             carrots: 0.845,
             lentils: 3.975,
-            tea: 895
+            tea: 895,
+            oranges: 2.29
         };
 
         // Package information
@@ -1073,7 +1095,8 @@
             apples: { size: 0.12, unit: 'pcs', brand: 'Pirkka', name: 'Apples' },
             carrots: { size: 2.0, unit: 'kg', brand: 'K-Menu', name: 'Carrots' },
             lentils: { size: 0.4, unit: 'kg', brand: 'Coop', name: 'Dried Lentils' },
-            tea: { size: 0.002, unit: 'kg', brand: 'Pirkka', name: 'Black Tea (teabags)', packageDisplay: '100 teabags' }
+            tea: { size: 0.002, unit: 'kg', brand: 'Pirkka', name: 'Black Tea (teabags)', packageDisplay: '100 teabags' },
+            oranges: { size: 0.12, unit: 'pcs', brand: 'Pirkka', name: 'Oranges' }
         };
 
         function getColorClass(actual, optimal) {
@@ -1276,7 +1299,7 @@
 
             const monthlyRequirements = {};
             Object.keys(foodPortions).forEach(food => {
-                if (food === 'apples') {
+                if (food === 'apples' || food === 'oranges') {
                     monthlyRequirements[food] = foodPortions[food] * 30;
                 } else if (food === 'tea') {
                     monthlyRequirements[food] = foodPortions[food] * 30;
@@ -1290,7 +1313,7 @@
                     const info = packageInfo[key];
                     let packagesNeeded;
 
-                    if (key === 'apples') {
+                    if (key === 'apples' || key === 'oranges') {
                         packagesNeeded = Math.ceil(monthlyKg);
                     } else if (key === 'tea') {
                         packagesNeeded = Math.ceil(monthlyKg / 100);
